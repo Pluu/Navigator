@@ -1,0 +1,14 @@
+include ':RoutesConst'
+include ':core-android'
+include ':feature2'
+include ':feature1'
+include ':Navigator'
+include ':app'
+rootProject.name = "RouterSample"
+rootProject.children.each { project ->
+    String projectDirName = "features/${project.name}"
+    File featureDir = new File(settingsDir, projectDirName)
+    if (featureDir.isDirectory()) {
+        project.projectDir = featureDir
+    }
+}

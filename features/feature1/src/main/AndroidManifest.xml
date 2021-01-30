@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pluu.sample.feature1">
+
+    <application>
+        <activity android:name=".Feature1Activity" />
+
+        <provider
+            android:name=".navigator.RouteProvider"
+            android:authorities="${applicationId}.feature1.navigator.RouteProvider" />
+    </application>
+
+</manifest>
