@@ -20,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
-        android:text="Go"
+        android:text="startForFinish"
+        android:textAllCaps="false"
         android:textColor="@android:color/black" />
 
 </LinearLayout>

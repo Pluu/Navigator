@@ -12,11 +12,16 @@ class Feature1Activity : AppCompatActivity(R.layout.activity_feature1) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding.btnGo.setOnClickListener {
             Navigator.of(this).start(
                 route = Routes2.Feature2,
-                args = listOf("1" to 1)
+                args = listOf("test_key" to (0..100_000_000).random())
             )
+        }
+
+        binding.btnFinish.setOnClickListener {
+            finish()
         }
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Feature1Activity">
@@ -11,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Feature1 View"
+        android:textColor="?attr/colorOnSecondary"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -19,7 +21,16 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="#333"
+        android:backgroundTint="?attr/colorOnSurface"
         android:text="Go"
-        android:textColor="@android:color/white" />
+        android:textColor="?attr/colorSurface" />
+
+    <Button
+        android:id="@+id/btnFinish"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="?attr/colorOnSurface"
+        android:text="Finish"
+        android:textColor="?attr/colorSurface" />
 </LinearLayout>

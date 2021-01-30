@@ -2,7 +2,6 @@ package com.pluu.navigator.provider
 
 import android.content.ContentProvider
 import android.content.ContentValues
-import android.database.Cursor
 import android.net.Uri
 
 abstract class Provider : EmptyProvider() {
@@ -21,15 +20,18 @@ abstract class EmptyProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?,
         sortOrder: String?
-    ): Cursor? {
-        throw Exception("unused")
-    }
+    ) = throw Exception("unused")
 
-    final override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        throw Exception("unused")
-    }
+    final override fun insert(
+        uri: Uri,
+        values: ContentValues?
+    ) = throw Exception("unused")
 
-    final override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+    final override fun delete(
+        uri: Uri,
+        selection: String?,
+        selectionArgs: Array<out String>?
+    ): Int {
         throw Exception("unused")
     }
 
@@ -38,11 +40,10 @@ abstract class EmptyProvider : ContentProvider() {
         values: ContentValues?,
         selection: String?,
         selectionArgs: Array<out String>?
-    ): Int {
-        throw Exception("unused")
-    }
+    ) = throw Exception("unused")
 
-    final override fun getType(uri: Uri): String? {
-        throw Exception("unused")
-    }
+
+    final override fun getType(
+        uri: Uri
+    ) = throw Exception("unused")
 }

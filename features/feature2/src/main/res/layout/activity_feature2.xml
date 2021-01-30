@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".Feature2Activity">
@@ -11,16 +12,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Feature2 View"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btnGo"
+        android:id="@+id/btnFinish"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="#333"
-        android:text="Go"
+        android:text="Finish"
         android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Receive Param"
+            android:textColor="?attr/colorOnPrimary"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#CCC" />
+
+        <TextView
+            android:id="@+id/tvParam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="?attr/colorOnPrimary" />
+
+    </LinearLayout>
 
 </LinearLayout>

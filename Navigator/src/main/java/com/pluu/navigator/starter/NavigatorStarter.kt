@@ -74,7 +74,7 @@ class NavigatorStarter(
         if (args != null) {
             intent.putExtras(bundleOf(*args.toTypedArray()))
         }
-        
+
         if (navOption != null) {
             if (navOption.singleTop) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
