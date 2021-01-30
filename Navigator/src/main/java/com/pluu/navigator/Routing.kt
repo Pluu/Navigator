@@ -1,14 +1,14 @@
 package com.pluu.navigator
 
-import android.content.Context
 import android.content.Intent
+import com.pluu.starter.Starter
 
-typealias INTENT_CREATOR = (Context) -> Intent
+typealias INTENT_CREATOR = (Starter) -> Intent
 
 interface Routing {
-    fun create(context: Context): Intent
+    fun create(starter: Starter): Intent
 }
 
 class RoutingImpl(private val creator: INTENT_CREATOR) : Routing {
-    override fun create(context: Context) = creator(context)
+    override fun create(starter: Starter) = creator(starter)
 }

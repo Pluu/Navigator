@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.pluu.deeplink.DeepLinker
 import com.pluu.navigator.Navigator
 import com.pluu.sample.routeconst.Routes1
 import com.pluu.sample.router.databinding.ActivityMainBinding
@@ -18,7 +19,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         binding.btnGo.setOnClickListener {
-            Navigator.of(this).startForResult(Routes1.Feature1, sampleRequestCode)
+            Navigator.of(this)
+                .startForResult(Routes1.Feature1, sampleRequestCode)
+        }
+        binding.btnGoDeepLink.setOnClickListener {
+            DeepLinker.of(this)
+                .execute("pluudeep://feature1")
         }
     }
 

@@ -4,10 +4,6 @@
 
     <application>
         <activity android:name=".Feature1Activity" />
-
-        <provider
-            android:name=".navigator.RouteProvider"
-            android:authorities="${applicationId}.feature1.navigator.RouteProvider" />
     </application>
 
 </manifest>

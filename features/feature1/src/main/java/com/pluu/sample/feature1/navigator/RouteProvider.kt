@@ -1,14 +1,14 @@
 package com.pluu.sample.feature1.navigator
 
-import android.content.Intent
-import com.pluu.navigator.provider.Provider
+import com.pluu.provider.Provider
 import com.pluu.sample.feature1.Feature1Activity
 import com.pluu.sample.routeconst.Routes1
+import com.pluu.utils.buildIntent
 
-class RouteProvider : Provider() {
+class RouteProvider : Provider {
     override fun provide() {
-        Routes1.Feature1.register { context ->
-            Intent(context, Feature1Activity::class.java)
+        Routes1.Feature1.register { starter ->
+            starter.context!!.buildIntent<Feature1Activity>()
         }
     }
 }

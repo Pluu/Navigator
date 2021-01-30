@@ -2,8 +2,9 @@ package com.pluu.navigator.starter
 
 import android.content.Intent
 import androidx.core.os.bundleOf
+import com.pluu.exception.MissingRouteThrowable
 import com.pluu.navigator.*
-import com.pluu.navigator.exception.MissingRouteThrowable
+import com.pluu.starter.Starter
 
 class NavigatorStarter(
     private val starter: Starter,
@@ -67,10 +68,11 @@ class NavigatorStarter(
         if (!containRoute) {
             throw MissingRouteThrowable(routeName = destination.toString())
         }
-        val context = starter.context ?: return
+        starter.context ?: return
+
         val routing = routingProvider.getRequiredRouting(destination)
 
-        val intent = routing.create(context)
+        val intent = routing.create(starter)
         if (args != null) {
             intent.putExtras(bundleOf(*args.toTypedArray()))
         }
@@ -87,4 +89,35 @@ class NavigatorStarter(
             starter.start(intent)
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // DeepLink
+    ///////////////////////////////////////////////////////////////////////////
+
+//    fun start(
+//        path: String,
+//        navOption: NavOptions? = null,
+//    ) {
+//        start(
+//            request = NavDeepLinkRequest(path.toUri()),
+//            navOption = navOption
+//        )
+//    }
+//
+//    fun start(
+//        request: NavDeepLinkRequest,
+//        navOption: NavOptions? = null,
+//    ) {
+//        startInternal(
+//            request = request,
+//            navOption = navOption
+//        )
+//    }
+//
+//    private fun startInternal(
+//        request: NavDeepLinkRequest,
+//        navOption: NavOptions?
+//    ) {
+//        routingProvider.matchDeepLink(request)
+//    }
 }

@@ -20,6 +20,10 @@ class Feature1Activity : AppCompatActivity(R.layout.activity_feature1) {
             )
         }
 
+        binding.btnDeepLink.setOnClickListener {
+            // TODO: Deep Link
+        }
+
         binding.btnFinish.setOnClickListener {
             finish()
         }

@@ -1,4 +1,4 @@
-package com.pluu.navigator.exception
+package com.pluu.exception
 
 class AlreadyRegisteredException(
     routeName: String

@@ -5,22 +5,33 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Main View"
+        android:text="Navigator Sample"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnGo"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
         android:text="startForFinish"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/btnGoDeepLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/white"
+        android:text="Deep Link"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 

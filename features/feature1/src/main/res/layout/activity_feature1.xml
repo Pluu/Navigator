@@ -6,6 +6,7 @@
     android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".Feature1Activity">
 
     <TextView
@@ -18,7 +19,7 @@
 
     <Button
         android:id="@+id/btnGo"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="?attr/colorOnSurface"
@@ -26,8 +27,17 @@
         android:textColor="?attr/colorSurface" />
 
     <Button
+        android:id="@+id/btnDeepLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="?attr/colorOnSurface"
+        android:text="Deep Link (Fixed:100)"
+        android:textColor="?attr/colorSurface" />
+
+    <Button
         android:id="@+id/btnFinish"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="?attr/colorOnSurface"

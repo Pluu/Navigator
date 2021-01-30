@@ -7,12 +7,7 @@ interface RoutingProvider {
 }
 
 class RoutingProviderImpl : RoutingProvider {
-    private val routing = mutableMapOf<Destination, Routing>()
-
-    fun addRouting(
-        destination: Destination,
-        creator: INTENT_CREATOR
-    ) = routing.put(destination, RoutingImpl(creator))
+    private val routing = mutableMapOf<AbstractRoute, Routing>()
 
     override fun containsRoute(destination: Destination): Boolean {
         return routing.contains(destination)
@@ -21,4 +16,9 @@ class RoutingProviderImpl : RoutingProvider {
     override fun getRequiredRouting(destination: Destination): Routing {
         return routing[destination]!!
     }
+
+    fun addRouting(
+        destination: AbstractRoute,
+        creator: INTENT_CREATOR
+    ) = routing.put(destination, RoutingImpl(creator))
 }
