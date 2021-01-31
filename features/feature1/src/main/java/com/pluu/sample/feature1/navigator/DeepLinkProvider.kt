@@ -1,7 +1,7 @@
-package com.pluu.sample.feature1.deeplink
+package com.pluu.sample.feature1.navigator
 
-import com.pluu.deeplink.DeepLink
-import com.pluu.provider.Provider
+import com.pluu.navigator.deeplink.DeepLink
+import com.pluu.navigator.provider.Provider
 import com.pluu.sample.feature1.Feature1Activity
 import com.pluu.utils.buildIntent
 

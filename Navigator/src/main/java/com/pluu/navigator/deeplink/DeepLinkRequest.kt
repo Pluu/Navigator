@@ -1,4 +1,4 @@
-package com.pluu.deeplink
+package com.pluu.navigator.deeplink
 
 import android.net.Uri
 

@@ -1,6 +1,6 @@
 package com.pluu.sample.feature2.navigator
 
-import com.pluu.provider.Provider
+import com.pluu.navigator.provider.Provider
 import com.pluu.sample.feature2.Feature2Activity
 import com.pluu.sample.routeconst.Routes2
 import com.pluu.utils.buildIntent

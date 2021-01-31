@@ -1,4 +1,4 @@
-package com.pluu.provider
+package com.pluu.navigator.provider
 
 interface Provider {
     fun provide()

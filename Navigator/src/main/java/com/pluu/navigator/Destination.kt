@@ -1,3 +1,5 @@
 package com.pluu.navigator
 
-interface Destination
+interface Destination {
+    val path: String
+}

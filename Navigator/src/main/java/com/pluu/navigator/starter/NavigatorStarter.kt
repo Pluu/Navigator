@@ -1,15 +1,21 @@
 package com.pluu.navigator.starter
 
 import android.content.Intent
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
-import com.pluu.exception.MissingRouteThrowable
 import com.pluu.navigator.*
+import com.pluu.navigator.deeplink.DeepLinkRequest
+import com.pluu.navigator.exception.MissingRouteThrowable
 import com.pluu.starter.Starter
 
 class NavigatorStarter(
     private val starter: Starter,
     private val routingProvider: RoutingProvider
 ) {
+    ///////////////////////////////////////////////////////////////////////////
+    // Navigation
+    ///////////////////////////////////////////////////////////////////////////
+
     fun <T : Route> start(
         route: T,
         navOption: NavOptions? = null,
@@ -70,7 +76,7 @@ class NavigatorStarter(
         }
         starter.context ?: return
 
-        val routing = routingProvider.getRequiredRouting(destination)
+        val routing = routingProvider.getRequiredRouting(destination) as? CreateRouting ?: return
 
         val intent = routing.create(starter)
         if (args != null) {
@@ -94,30 +100,18 @@ class NavigatorStarter(
     // DeepLink
     ///////////////////////////////////////////////////////////////////////////
 
-//    fun start(
-//        path: String,
-//        navOption: NavOptions? = null,
-//    ) {
-//        start(
-//            request = NavDeepLinkRequest(path.toUri()),
-//            navOption = navOption
-//        )
-//    }
-//
-//    fun start(
-//        request: NavDeepLinkRequest,
-//        navOption: NavOptions? = null,
-//    ) {
-//        startInternal(
-//            request = request,
-//            navOption = navOption
-//        )
-//    }
-//
-//    private fun startInternal(
-//        request: NavDeepLinkRequest,
-//        navOption: NavOptions?
-//    ) {
-//        routingProvider.matchDeepLink(request)
-//    }
+    fun execute(
+        path: String
+    ): Boolean {
+        return execute(DeepLinkRequest(path.toUri()))
+    }
+
+    fun execute(request: DeepLinkRequest): Boolean {
+        val deepLinkMatch = routingProvider.matchDeepLink(request) ?: return false
+        val routing = routingProvider.getRequiredRouting(
+            deepLinkMatch.destination
+        ) as? ExecuteRouting ?: return false
+        routing.execute(starter, deepLinkMatch)
+        return true
+    }
 }

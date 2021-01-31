@@ -8,7 +8,6 @@ class App : Application() {
         super.onCreate()
         initTimber()
         initNavigator()
-        initDeepLink()
     }
 
     private fun initTimber() {
@@ -21,17 +20,9 @@ class App : Application() {
     private fun initNavigator() {
         listOf(
             com.pluu.sample.feature1.navigator.RouteProvider(),
+            com.pluu.sample.feature1.navigator.DeepLinkProvider(),
             com.pluu.sample.feature2.navigator.RouteProvider(),
-        ).forEach {
-            it.provide()
-        }
-    }
-
-    // Sample
-    private fun initDeepLink() {
-        listOf(
-            com.pluu.sample.feature1.deeplink.DeepLinkProvider(),
-            com.pluu.sample.feature2.deeplink.DeepLinkProvider(),
+            com.pluu.sample.feature2.navigator.DeepLinkProvider(),
         ).forEach {
             it.provide()
         }

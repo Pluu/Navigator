@@ -1,11 +1,14 @@
-package com.pluu.deeplink
+package com.pluu.navigator.deeplink
 
 import android.net.Uri
 import java.util.*
 import java.util.regex.Pattern
 
-class NavDeepLink(
-    private val uri: String
+///////////////////////////////////////////////////////////////////////////
+// ref: https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:navigation/navigation-common/src/main/java/androidx/navigation/NavDeepLink.java
+///////////////////////////////////////////////////////////////////////////
+internal class NavDeepLink(
+    val uriOrPath: String
 ) {
     private val SCHEME_PATTERN = "^[a-zA-Z]+[+\\w\\-.]*:".toPattern()
 
@@ -17,20 +20,20 @@ class NavDeepLink(
     private var pattern: Pattern? = null
 
     init {
-        if (uri.isNotEmpty()) {
-            val parameterizedUri = Uri.parse(uri)
+        if (uriOrPath.isNotEmpty()) {
+            val parameterizedUri = Uri.parse(uriOrPath)
             mIsParameterizedQuery = parameterizedUri.query != null
 
             val uriRegex = StringBuilder("^")
 
-            if (!SCHEME_PATTERN.matcher(uri).find()) {
+            if (!SCHEME_PATTERN.matcher(uriOrPath).find()) {
                 uriRegex.append("http[s]?://")
             }
             val fillInPattern = Pattern.compile("\\{(.+?)\\}")
             if (mIsParameterizedQuery) {
                 // TODO
             } else {
-                mExactDeepLink = buildPathRegex(uri, uriRegex, fillInPattern)
+                mExactDeepLink = buildPathRegex(uriOrPath, uriRegex, fillInPattern)
             }
 
             // Since we've used Pattern.quote() above, we need to
@@ -126,6 +129,10 @@ class NavDeepLink(
 //            }
 //        }
         return null
+    }
+
+    override fun toString(): String {
+        return "NavDeepLink(uri='$uriOrPath', pattern=$pattern)"
     }
 }
 
