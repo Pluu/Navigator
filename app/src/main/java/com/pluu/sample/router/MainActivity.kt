@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
         binding.btnGoDeepLink.setOnClickListener {
             Navigator.of(this)
-                .execute("pluudeep://feature1")
+                .execute("pluu://feature1")
         }
     }
 

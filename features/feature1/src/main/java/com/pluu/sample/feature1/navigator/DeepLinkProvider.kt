@@ -7,7 +7,7 @@ import com.pluu.utils.buildIntent
 
 class DeepLinkProvider : Provider {
     override fun provide() {
-        DeepLink("pluudeep://feature1").register { starter, _ ->
+        DeepLink("pluu://feature1").register { starter, _ ->
             val context = starter.context ?: return@register
             starter.start(context.buildIntent<Feature1Activity>())
         }
