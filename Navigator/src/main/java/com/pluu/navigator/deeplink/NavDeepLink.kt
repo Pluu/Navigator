@@ -2,13 +2,15 @@ package com.pluu.navigator.deeplink
 
 import android.net.Uri
 import java.util.*
+import java.util.regex.Matcher
 import java.util.regex.Pattern
+
 
 ///////////////////////////////////////////////////////////////////////////
 // ref: https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:navigation/navigation-common/src/main/java/androidx/navigation/NavDeepLink.java
 ///////////////////////////////////////////////////////////////////////////
 internal class NavDeepLink(
-    val uriOrPath: String
+    val uri: String
 ) {
     private val SCHEME_PATTERN = "^[a-zA-Z]+[+\\w\\-.]*:".toPattern()
 
@@ -20,20 +22,52 @@ internal class NavDeepLink(
     private var pattern: Pattern? = null
 
     init {
-        if (uriOrPath.isNotEmpty()) {
-            val parameterizedUri = Uri.parse(uriOrPath)
+        if (uri.isNotEmpty()) {
+            val parameterizedUri = Uri.parse(uri)
             mIsParameterizedQuery = parameterizedUri.query != null
 
             val uriRegex = StringBuilder("^")
 
-            if (!SCHEME_PATTERN.matcher(uriOrPath).find()) {
+            if (!SCHEME_PATTERN.matcher(uri).find()) {
                 uriRegex.append("http[s]?://")
             }
             val fillInPattern = Pattern.compile("\\{(.+?)\\}")
             if (mIsParameterizedQuery) {
-                // TODO
+                var matcher = Pattern.compile("(\\?)").matcher(uri)
+                if (matcher.find()) {
+                    buildPathRegex(uri.substring(0, matcher.start()), uriRegex, fillInPattern)
+                }
+                mExactDeepLink = false
+                for (paramName in parameterizedUri.queryParameterNames) {
+                    val argRegex = StringBuilder()
+                    val queryParam = parameterizedUri.getQueryParameter(paramName)
+                    matcher = fillInPattern.matcher(queryParam)
+                    var appendPos = 0
+                    val param = ParamQuery()
+                    // Build the regex for each query param
+                    while (matcher.find()) {
+                        param.addArgumentName(matcher.group(1))
+                        argRegex.append(
+                            Pattern.quote(
+                                queryParam!!.substring(
+                                    appendPos,
+                                    matcher.start()
+                                )
+                            )
+                        )
+                        argRegex.append("(.+?)?")
+                        appendPos = matcher.end()
+                    }
+                    if (appendPos < queryParam!!.length) {
+                        argRegex.append(Pattern.quote(queryParam.substring(appendPos)))
+                    }
+                    // Save the regex with wildcards unquoted, and add the param to the map with its
+                    // name as the key
+                    param.setParamRegex(argRegex.toString().replace(".*", "\\E.*\\Q"))
+                    mParamArgMap[paramName!!] = param
+                }
             } else {
-                mExactDeepLink = buildPathRegex(uriOrPath, uriRegex, fillInPattern)
+                mExactDeepLink = buildPathRegex(uri, uriRegex, fillInPattern)
             }
 
             // Since we've used Pattern.quote() above, we need to
@@ -78,66 +112,57 @@ internal class NavDeepLink(
         return pattern?.matcher(path)?.matches() ?: false
     }
 
-    fun matchingArguments(deepLink: Uri): Map<String, Any>? {
+    fun matchingArguments(
+        deepLink: Uri,
+    ): Map<String, Any>? {
         val matcher = pattern?.matcher(deepLink.toString())
         if (matcher == null || !matcher.matches()) return null
 
-//        val size = arguments.size
-//        for (index in 0 until size) {
-//            val argumentName = arguments[index]
-//            val value = Uri.decode(matcher.group(index + 1))
-//            val argument: NavArgument = arguments(argumentName)
-//            if (parseArgument(bundle, argumentName, value, argument)) {
-//                return null
-//            }
-//        }
-//        if (mIsParameterizedQuery) {
-//            for ((paramName, storedParam) in mParamArgMap) {
-//                var argMatcher: Matcher? = null
-//                val inputParams = deepLink.getQueryParameter(paramName)
-//                if (inputParams != null) {
-//                    // Match the input arguments with the saved regex
-//                    argMatcher = Pattern.compile(storedParam.paramRegex).matcher(inputParams)
-//                    if (!argMatcher.matches()) {
-//                        return null
-//                    }
-//                }
-//                // Params could have multiple arguments, we need to handle them all
-//                for (index in 0 until storedParam.size()) {
-//                    var value = if (argMatcher != null) {
-//                        Uri.decode(argMatcher.group(index + 1))
-//                    } else {
-//                        null
-//                    }
-//
-//                    val argName: String = storedParam.getArgumentName(index)
-//                    val argument: NavArgument = arguments.get(argName)
-//                    // Missing parameter so see if it has a default value or is Nullable
-//                    if (argument != null
-//                        && (value == null || value.replace("[{}]".toRegex(), "") == argName)
-//                    ) {
-//                        if (argument.getDefaultValue() != null) {
-//                            value = argument.getDefaultValue().toString()
-//                        } else if (argument.isNullable()) {
-//                            value = null
-//                        }
-//                    }
-//                    if (parseArgument(bundle, argName, value, argument)) {
-//                        return null
-//                    }
-//                }
-//            }
-//        }
-        return null
+        val resultMap = mutableMapOf<String, Any>()
+
+        val size = arguments.size
+        for (index in 0 until size) {
+            val argumentName = arguments[index]
+            val value = Uri.decode(matcher.group(index + 1))
+            resultMap[argumentName] = value
+        }
+        if (mIsParameterizedQuery) {
+            for ((paramName, storedParam) in mParamArgMap) {
+                var argMatcher: Matcher? = null
+                val inputParams = deepLink.getQueryParameter(paramName)
+                if (inputParams != null) {
+                    // Match the input arguments with the saved regex
+                    argMatcher = Pattern.compile(storedParam.paramRegex).matcher(inputParams)
+                    if (!argMatcher.matches()) {
+                        return null
+                    }
+                    // Params could have multiple arguments, we need to handle them all
+                    for (index in 0 until storedParam.size()) {
+                        var value: String? = null
+                        if (argMatcher != null) {
+                            value = Uri.decode(argMatcher.group(index + 1))
+                        }
+                        val argName = storedParam.getArgumentName(index)
+                        if (value != null) {
+                            resultMap[argName] = value
+                        }
+                    }
+                }
+            }
+        }
+        return resultMap
     }
 
+    fun isExactDeepLink() = mExactDeepLink
+
     override fun toString(): String {
-        return "NavDeepLink(uri='$uriOrPath', pattern=$pattern)"
+        return "NavDeepLink(uri='$uri', pattern='$pattern')"
     }
 }
 
-private class ParamQuery() {
-    var paramRegex: String? = null
+private class ParamQuery {
+    var paramRegex: String = ""
+        private set
     private val mArguments = ArrayList<String>()
 
     fun addArgumentName(name: String) {
@@ -150,6 +175,10 @@ private class ParamQuery() {
 
     fun size(): Int {
         return mArguments.size
+    }
+
+    fun setParamRegex(regex: String) {
+        paramRegex = regex
     }
 
 }

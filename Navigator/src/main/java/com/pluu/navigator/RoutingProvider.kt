@@ -42,11 +42,13 @@ class RoutingProviderImpl : RoutingProvider {
         for (deepLink in deepLinks) {
             val uri = request.uri
             if (deepLink.match(uri.toString())) {
-                val destination = findDestination(uri.toString())
+                val destination = findDestination(deepLink.uri)
                 if (destination != null) {
                     return DeepLinkMatch(
-                        destination,
-                        deepLink.matchingArguments(uri).orEmpty()
+                        request = request,
+                        destination = destination,
+                        args = deepLink.matchingArguments(uri).orEmpty(),
+                        isExactDeepLink = deepLink.isExactDeepLink()
                     )
                 } else {
                     throw MissingThrowable("destination", "deeplink")
