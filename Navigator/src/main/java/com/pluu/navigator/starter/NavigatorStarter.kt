@@ -2,7 +2,6 @@ package com.pluu.navigator.starter
 
 import android.content.Intent
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import com.pluu.navigator.*
 import com.pluu.navigator.deeplink.DeepLinkRequest
 import com.pluu.navigator.exception.MissingRouteThrowable
@@ -26,14 +25,14 @@ class NavigatorStarter(
         )
     }
 
-    fun <T : RouteWithParam> start(
+    fun <P : RouteParam, T : RouteWithParam<P>> start(
         route: T,
-        args: List<Pair<String, Any?>>? = null,
+        param: P,
         navOption: NavOptions? = null,
     ) {
         startInternal(
             destination = route,
-            args = args,
+            param = param,
             navOption = navOption
         )
     }
@@ -50,16 +49,16 @@ class NavigatorStarter(
         )
     }
 
-    fun <T : RouteWithParam> startForResult(
+    fun <P : RouteParam, T : RouteWithParam<P>> startForResult(
         route: Route,
         requestCode: Int,
-        args: List<Pair<String, Any?>>? = null,
+        param: P,
         navOption: NavOptions? = null
     ) {
         startInternal(
             destination = route,
             requestCode = requestCode,
-            args = args,
+            param = param,
             navOption = navOption
         )
     }
@@ -67,7 +66,7 @@ class NavigatorStarter(
     private fun startInternal(
         destination: Destination,
         requestCode: Int? = null,
-        args: List<Pair<String, Any?>>? = null,
+        param: RouteParam? = null,
         navOption: NavOptions?
     ) {
         val containRoute = routingProvider.containsRoute(destination)
@@ -79,8 +78,8 @@ class NavigatorStarter(
         val routing = routingProvider.getRequiredRouting(destination) as? CreateRouting ?: return
 
         val intent = routing.create(starter)
-        if (args != null) {
-            intent.putExtras(bundleOf(*args.toTypedArray()))
+        if (param != null) {
+            intent.putExtra(ROUTE_PARAMS_KEY, param)
         }
 
         if (navOption != null) {

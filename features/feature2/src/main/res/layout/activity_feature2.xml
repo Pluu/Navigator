@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Receive Param"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="?attr/colorOnSecondary"
             android:textStyle="bold" />
 
         <View
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:textColor="?attr/colorOnPrimary" />
+            android:textColor="?attr/colorOnSecondary" />
 
     </LinearLayout>
 
