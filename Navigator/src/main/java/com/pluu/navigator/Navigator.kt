@@ -12,7 +12,7 @@ object Navigator {
     private val routingProvider = RoutingProviderImpl()
 
     internal fun registerRoute(
-        route: AbstractRoute,
+        route: Destination,
         creator: INTENT_CREATOR
     ) {
         if (routingProvider.containsRoute(route)) {
@@ -23,7 +23,7 @@ object Navigator {
     }
 
     internal fun registerRoute(
-        route: AbstractRoute,
+        route: Destination,
         executor: LINK_EXECUTOR
     ) {
         if (routingProvider.containsRoute(route)) {

@@ -18,12 +18,12 @@ class RoutingProviderImpl : RoutingProvider {
     private val deepLinks = mutableListOf<NavDeepLink>()
 
     fun addRouting(
-        destination: AbstractRoute,
+        destination: Destination,
         creator: INTENT_CREATOR
     ) = routing.put(destination, CreateRoutingImpl(creator))
 
     fun addDeepLink(
-        destination: AbstractRoute,
+        destination: Destination,
         creator: LINK_EXECUTOR
     ): Routing? {
         deepLinks.add(NavDeepLink(destination.path))
