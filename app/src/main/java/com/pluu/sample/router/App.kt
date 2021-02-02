@@ -22,7 +22,9 @@ class App : Application() {
             com.pluu.sample.feature1.navigator.RouteProvider(),
             com.pluu.sample.feature1.navigator.DeepLinkProvider(),
             com.pluu.sample.feature2.navigator.RouteProvider(),
+            com.pluu.sample.feature2.navigator.RouteProviderForJava(),
             com.pluu.sample.feature2.navigator.DeepLinkProvider(),
+            com.pluu.sample.feature2.navigator.DeepLinkProviderForJava(),
         ).forEach {
             it.provide()
         }
