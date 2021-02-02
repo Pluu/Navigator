@@ -2,6 +2,7 @@ package com.pluu.sample.feature1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import com.pluu.navigator.Navigator
 import com.pluu.sample.feature1.databinding.ActivityFeature1Binding
 import com.pluu.sample.routeconst.Routes2
@@ -14,6 +15,15 @@ class Feature1Activity : AppCompatActivity(R.layout.activity_feature1) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        intent.extras?.let { extras ->
+            binding.tvParam.text = extras.keySet()
+                .joinToString(separator = System.lineSeparator()) { key ->
+                    "${key}:${extras.get(key)}"
+                }
+        }
+
+        binding.receiveLayout.isGone = intent.extras?.isEmpty ?: true
+
         binding.btnGo.setOnClickListener {
             Navigator.of(this).start(
                 route = Routes2.Feature2,
@@ -24,8 +34,7 @@ class Feature1Activity : AppCompatActivity(R.layout.activity_feature1) {
         }
 
         binding.btnDeepLink.setOnClickListener {
-            Navigator.of(this)
-                .execute("pluu://feature2")
+            // TODO
         }
 
         binding.btnFinish.setOnClickListener {

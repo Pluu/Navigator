@@ -43,4 +43,39 @@
         android:backgroundTint="?attr/colorOnSurface"
         android:text="Finish"
         android:textColor="?attr/colorSurface" />
+
+    <LinearLayout
+        android:id="@+id/receiveLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Receive Param"
+            android:textColor="?attr/colorSecondary"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#333" />
+
+        <TextView
+            android:id="@+id/tvParam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 </LinearLayout>

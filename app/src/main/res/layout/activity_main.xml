@@ -26,12 +26,22 @@
         android:textColor="@android:color/black" />
 
     <Button
-        android:id="@+id/btnGoDeepLink"
+        android:id="@+id/btnDeepLinkSimple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
-        android:text="Deep Link"
+        android:text="Deep Link (Simple)"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/btnDeepLinkSimple_QueryString"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/white"
+        android:text="Deep Link (QueryString)"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 

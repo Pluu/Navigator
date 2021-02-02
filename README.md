@@ -24,11 +24,15 @@ object Routes1 {
 }
 
 object Routes2 {
-    object Feature2 : RouteWithParam()
+    object Feature2 : RouteWithParam<SampleParam>()
 }
+
+class SampleParam(
+    val value: Int
+) : RouteParam()
 ```
 
-### provider
+### Register provider (creator)
 
 ```kotlin
 class RouteProvider : Provider {
@@ -36,19 +40,38 @@ class RouteProvider : Provider {
         Routes1.Feature1.register { starter ->
             Intent(starter.context!!, Feature1Activity::class.java)
         }
+
+        Routes2.Feature2.register { starter ->
+            Intent(starter.context!!, Feature2Activity::class.java)
+        }
     }
 }
 ```
 
 ## Define deepLink
 
-### routes & Provider
+### Register routes & Provider (executor)
 
 ```kotlin
 class DeepLinkProvider : Provider {
     override fun provide() {
+        // Simple
         DeepLink("pluu://feature1").register { starter, deepLinkMatch ->
-            Intent(starter.context!!, Feature1Activity::class.java)
+            val intent = Intent(starter.context!!, Feature1Activity::class.java)
+            starter.start(intent)
+        }
+      
+        // Query string
+        DeepLink("pluu://feature2?type={type}").register { starter, deepLinkMatch ->
+            // Sample : pluu://feature2?type={123}
+            // deepLinkMatch.args
+            // +------+-------+
+            // | Key  | Value |
+            // +------+-------+
+            // | type | 123   |
+            // +------+-------+                                                       
+            val intent = Intent(starter.context!!, Feature1Activity::class.java)
+            starter.start(intent)
         }
     }
 }
