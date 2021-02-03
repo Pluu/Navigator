@@ -63,7 +63,7 @@ class DeepLinkProvider : Provider {
       
         // Query string
         DeepLink("pluu://feature2?type={type}").register { starter, deepLinkMatch ->
-            // Sample : pluu://feature2?type={123}
+            // Sample : pluu://feature2?type=123
             // deepLinkMatch.args
             // +------+-------+
             // | Key  | Value |
