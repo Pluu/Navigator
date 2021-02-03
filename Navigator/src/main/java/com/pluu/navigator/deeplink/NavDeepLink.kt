@@ -1,6 +1,7 @@
 package com.pluu.navigator.deeplink
 
 import android.net.Uri
+import androidx.core.net.toUri
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -111,6 +112,10 @@ internal class NavDeepLink(
     fun match(path: String): Boolean {
         return pattern?.matcher(path)?.matches() ?: false
     }
+
+    fun matchingArguments(
+        deepLink: String,
+    ): Map<String, Any>? = matchingArguments(deepLink.toUri())
 
     fun matchingArguments(
         deepLink: Uri,
