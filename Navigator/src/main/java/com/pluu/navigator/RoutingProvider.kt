@@ -13,7 +13,7 @@ interface RoutingProvider {
     fun matchDeepLink(request: DeepLinkRequest): DeepLinkMatch?
 }
 
-class RoutingProviderImpl : RoutingProvider {
+internal class RoutingProviderImpl : RoutingProvider {
     private val routing = mutableMapOf<Destination, Routing>()
     private val deepLinks = mutableListOf<NavDeepLink>()
 
