@@ -4,7 +4,12 @@ buildscript {
     ext.androidGradlePlugin_version = "4.1.2"
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        jcenter() {
+            content {
+                includeModule("org.jetbrains.trove4j", "trove4j")
+            }
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$androidGradlePlugin_version"
@@ -15,7 +20,12 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        jcenter() {
+            content {
+                includeModule("org.jetbrains.trove4j", "trove4j")
+            }
+        }
     }
 }
 
