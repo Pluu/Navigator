@@ -76,6 +76,7 @@ class NavigatorStarter(
         starter.context ?: return
 
         val routing = routingProvider.getRequiredRouting(destination) as? CreateRouting ?: return
+        logger.d("matched route ${destination.path}")
 
         val intent = routing.create(starter)
         if (param != null) {
@@ -110,6 +111,7 @@ class NavigatorStarter(
         val routing = routingProvider.getRequiredRouting(
             deepLinkMatch.destination
         ) as? ExecuteRouting ?: return false
+        logger.d("matched deeplink ${request.uri}")
         routing.execute(starter, deepLinkMatch)
         return true
     }

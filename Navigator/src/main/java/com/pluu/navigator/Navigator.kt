@@ -19,6 +19,7 @@ object Navigator {
             throw AlreadyRegisteredException(route.toString())
         } else {
             routingProvider.addRouting(route, creator)
+            logger.d("Added routing ${route.path}")
         }
     }
 
@@ -30,6 +31,7 @@ object Navigator {
             throw AlreadyRegisteredException(route.toString())
         } else {
             routingProvider.addDeepLink(route, executor)
+            logger.d("Added deeplink ${route.path}")
         }
     }
 
