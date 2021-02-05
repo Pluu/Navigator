@@ -4,6 +4,10 @@ import com.pluu.navigator.Route
 import com.pluu.navigator.RouteParam
 import com.pluu.navigator.RouteWithParam
 
+object Home {
+    object Default : Route()
+}
+
 object Routes1 {
     object Feature1 : Route()
 }

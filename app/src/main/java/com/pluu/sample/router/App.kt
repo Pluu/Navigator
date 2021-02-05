@@ -18,7 +18,9 @@ class App : Application() {
 
     // Sample
     private fun initNavigator() {
+        Timber.d("Init Navigator")
         listOf(
+            com.pluu.sample.featurehome.navigator.RouteProvider(),
             com.pluu.sample.feature1.navigator.RouteProvider(),
             com.pluu.sample.feature1.navigator.DeepLinkProvider(),
             com.pluu.sample.feature2.navigator.RouteProvider(),

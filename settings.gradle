@@ -1,9 +1,10 @@
-include ':RoutesConst'
-include ':core-android'
-include ':feature2'
-include ':feature1'
-include ':Navigator'
 include ':app'
+include ':core-android'
+include ':featureHome'
+include ':feature1'
+include ':feature2'
+include ':RoutesConst'
+include ':Navigator'
 rootProject.name = "RouterSample"
 rootProject.children.each { project ->
     String projectDirName = "features/${project.name}"

@@ -6,7 +6,6 @@ import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-
 ///////////////////////////////////////////////////////////////////////////
 // ref: https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:navigation/navigation-common/src/main/java/androidx/navigation/NavDeepLink.java
 ///////////////////////////////////////////////////////////////////////////
@@ -133,7 +132,7 @@ internal class NavDeepLink(
         }
         if (mIsParameterizedQuery) {
             for ((paramName, storedParam) in mParamArgMap) {
-                var argMatcher: Matcher? = null
+                var argMatcher: Matcher?
                 val inputParams = deepLink.getQueryParameter(paramName)
                 if (inputParams != null) {
                     // Match the input arguments with the saved regex
