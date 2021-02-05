@@ -2,16 +2,17 @@
 
 ```
 project
- |
- \---app
- |
- \---feature1 : feature 1 + navigation/deeplink provider
- |
- \---feature2 : feature 2 + navigation/deeplink provider
- |
- \---RoutesConst : define navigation routes
- |
- \---core-android : Utility
+│
+├──app
+│
+├──RoutesConst : define navigation routes
+│
+├── features
+│   ├──featureHome : feature Home + navigation provider
+│   ├──feature1 : feature 1 + navigation/deeplink provider
+│   └──feature2 : feature 2 + navigation/deeplink provider
+│
+└──core-android : Utility
 ```
 
 ##  Define  navigation routes

@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="?attr/colorOnSurface"
-        android:text="Go"
+        android:text="Route run > Feature2"
+        android:textAllCaps="false"
         android:textColor="?attr/colorSurface" />
 
     <Button
@@ -32,16 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="?attr/colorOnSurface"
-        android:text="Deep Link (Fixed:100)"
-        android:textColor="?attr/colorSurface" />
-
-    <Button
-        android:id="@+id/btnFinish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="?attr/colorOnSurface"
-        android:text="Finish"
+        android:text="Deep Link > Feature2 (Fixed:100)"
+        android:textAllCaps="false"
         android:textColor="?attr/colorSurface" />
 
     <LinearLayout

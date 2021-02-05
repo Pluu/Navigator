@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launchWhenStarted {
-            delay(1_000)
+            delay(500)
             Navigator.of(this@MainActivity)
                 .start(Home.Default)
             finish()

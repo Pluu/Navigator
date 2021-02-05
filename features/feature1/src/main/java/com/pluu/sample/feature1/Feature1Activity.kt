@@ -34,11 +34,7 @@ class Feature1Activity : AppCompatActivity(R.layout.activity_feature1) {
         }
 
         binding.btnDeepLink.setOnClickListener {
-            // TODO
-        }
-
-        binding.btnFinish.setOnClickListener {
-            finish()
+            Navigator.of(this).execute("pluu://feature2")
         }
     }
 }

@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
-        android:text="startForFinish"
+        android:text="Route run > Feature1"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
-        android:text="Deep Link (Simple)"
+        android:text="Deep Link > Feature1 (Simple)"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
-        android:text="Deep Link (QueryString)"
+        android:text="Deep Link > Feature1 (QueryString)"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 
