@@ -14,7 +14,7 @@ class DeepLinkProvider : Provider {
             start(starter, deepLinkMatch)
         }
 
-        DeepLink("pluu://feature1/sample1?type={type}").register { starter, deepLinkMatch ->
+        DeepLink("feature1/sample1?type={type}").register { starter, deepLinkMatch ->
             start(starter, deepLinkMatch)
         }
     }

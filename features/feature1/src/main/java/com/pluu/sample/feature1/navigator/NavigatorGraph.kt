@@ -25,4 +25,9 @@ val Feature1Graph = routeGraph(
         val context = starter.context ?: return@addDeepLink
         starter.start(context.buildIntent<Feature1SubActivity>())
     }
+
+    addDeepLink("luckystar://izumi/konata") { starter, _ ->
+        val context = starter.context ?: return@addDeepLink
+        starter.start(context.buildIntent<Feature1SubActivity>())
+    }
 }
