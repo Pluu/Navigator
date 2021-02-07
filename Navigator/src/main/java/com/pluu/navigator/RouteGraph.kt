@@ -76,7 +76,7 @@ class RouteGraph internal constructor() : Destination() {
         path: String
     ) = buildString {
         if (path.hasScheme()) {
-            append(path)
+            append(path.trimUriSeparator())
         } else {
             val baseUrl = deepLinkConfig?.path.orEmpty()
             if (!baseUrl.hasScheme()) {
@@ -84,10 +84,11 @@ class RouteGraph internal constructor() : Destination() {
                 append("://")
             }
             append(baseUrl.trimUriSeparator())
-            if (last() != '/') {
+            val cleanPath = path.trimUriSeparator()
+            if (cleanPath.isNotEmpty()) {
                 append("/")
+                append(cleanPath)
             }
-            append(path.trimUriSeparator())
         }
     }
 
@@ -108,8 +109,8 @@ class RouteGraph internal constructor() : Destination() {
     ///////////////////////////////////////////////////////////////////////////
 
     fun matchDeepLink(request: DeepLinkRequest): DeepLinkMatch? {
+        val uri = request.uri.toString().trimUriSeparator()
         for (deepLink in deepLinks.valueIterator()) {
-            val uri = request.uri
             if (deepLink.match(uri.toString())) {
                 val destination = findDestination(deepLink.uri)
                 if (destination != null) {
