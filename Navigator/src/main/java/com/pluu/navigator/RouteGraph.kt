@@ -2,6 +2,7 @@ package com.pluu.navigator
 
 import androidx.collection.ArrayMap
 import androidx.collection.SparseArrayCompat
+import androidx.collection.contains
 import androidx.collection.valueIterator
 import com.pluu.navigator.deeplink.DeepLink
 import com.pluu.navigator.deeplink.DeepLinkMatch
@@ -12,7 +13,9 @@ import com.pluu.navigator.util.hasScheme
 import com.pluu.navigator.util.toIteratorWithRemove
 import com.pluu.navigator.util.trimUriSeparator
 
-class RouteGraph internal constructor() : Destination() {
+class RouteGraph internal constructor(
+    private val name: String = "Graph"
+) : Destination() {
     private val routingNodes = ArrayMap<Destination, Routing>()
     private val deepLinks = SparseArrayCompat<NavDeepLink>()
 
@@ -23,12 +26,17 @@ class RouteGraph internal constructor() : Destination() {
     fun addRoute(
         destination: Destination,
         creator: INTENT_CREATOR
-    ) = routingNodes.put(destination, CreateRoutingImpl(creator))
+    ) = addRoute(destination, CreateRoutingImpl(creator))
 
     fun addDeepLink(
         destination: Destination,
         executor: LINK_EXECUTOR
     ): Routing? {
+        if (containsRoute(destination)) {
+            logger.w("[$name] DeepLink ${destination.path}(${destination.hashCode()}) is already registered ")
+            return null
+        }
+
         addDeepLink(
             NavDeepLink(
                 createDeepLinkPath(
@@ -37,18 +45,30 @@ class RouteGraph internal constructor() : Destination() {
                 )
             )
         )
-        return routingNodes.put(destination, ExecuteRoutingImpl(executor))
+        return addRoute(destination, ExecuteRoutingImpl(executor))
     }
 
-    fun addRoute(
+    internal fun addRoute(
         destination: Destination,
         routing: Routing
-    ) = routingNodes.put(destination, routing)
+    ): Routing? {
+        if (containsRoute(destination)) {
+            logger.w("[$name] Route ('${destination.path}') is already registered ")
+            return null
+        }
+        logger.d("[$name] Added routing ${destination.path}")
+        return routingNodes.put(destination, routing)
+    }
 
     private fun addDeepLink(
         deepLink: NavDeepLink
     ) {
+        if (deepLinks.contains(deepLink.hashCode())) {
+            logger.w("[$name] DeepLink ('${deepLink.uri}') is already registered ")
+            return
+        }
         deepLinks.put(deepLink.hashCode(), deepLink)
+        logger.d("[$name] Added deeplink ${deepLink.uri}")
     }
 
     fun addRouteGraph(
@@ -138,6 +158,7 @@ class RouteGraph internal constructor() : Destination() {
     }
 
     class Builder(
+        private val graphName: String,
         private val deepLinkConfig: DeepLinkConfig? = null
     ) {
         private val routeList = mutableListOf<Pair<Destination, INTENT_CREATOR>>()
@@ -158,7 +179,7 @@ class RouteGraph internal constructor() : Destination() {
         }
 
         fun build(): RouteGraph {
-            return RouteGraph().apply {
+            return RouteGraph(graphName).apply {
                 if (deepLinkConfig != null) {
                     setPath(deepLinkConfig.path)
                 }
@@ -177,10 +198,11 @@ class RouteGraph internal constructor() : Destination() {
 }
 
 fun routeGraph(
+    graphName: String,
     deepLinkConfig: DeepLinkConfig,
     generator: RouteGraph.Builder.() -> Unit
 ): RouteGraph {
-    val builder = RouteGraph.Builder(deepLinkConfig)
+    val builder = RouteGraph.Builder(graphName, deepLinkConfig)
     builder.generator()
     return builder.build()
 }

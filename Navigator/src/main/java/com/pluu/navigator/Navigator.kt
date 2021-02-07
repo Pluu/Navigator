@@ -2,7 +2,6 @@ package com.pluu.navigator
 
 import android.app.Activity
 import androidx.fragment.app.Fragment
-import com.pluu.navigator.exception.AlreadyRegisteredException
 import com.pluu.navigator.starter.NavigatorStarter
 import com.pluu.starter.ActivityStarter
 import com.pluu.starter.FragmentStarter
@@ -15,24 +14,14 @@ object Navigator {
         route: Destination,
         creator: INTENT_CREATOR
     ) {
-        if (coreGraph.containsRoute(route)) {
-            throw AlreadyRegisteredException(route.toString())
-        } else {
-            coreGraph.addRoute(route, creator)
-            logger.d("Added routing ${route.path}")
-        }
+       coreGraph.addRoute(route, creator)
     }
 
     internal fun addDestination(
         route: Destination,
         executor: LINK_EXECUTOR
     ) {
-        if (coreGraph.containsRoute(route)) {
-            throw AlreadyRegisteredException(route.toString())
-        } else {
-            coreGraph.addDeepLink(route, executor)
-            logger.d("Added deeplink ${route.path}")
-        }
+        coreGraph.addDeepLink(route, executor)
     }
 
     fun addDestinations(graph: RouteGraph) {
