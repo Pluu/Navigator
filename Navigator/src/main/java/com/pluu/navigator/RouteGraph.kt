@@ -91,9 +91,9 @@ class RouteGraph internal constructor(
         if (path.hasScheme()) {
             append(path.trimUriSeparator())
         } else {
-            val baseUrl = deepLinkConfig?.path.orEmpty()
+            val baseUrl = deepLinkConfig?.prefixPath.orEmpty()
             if (!baseUrl.hasScheme()) {
-                append(NavigatorController.config.deepLinkConfig?.path)
+                append(NavigatorController.config.baseScheme)
                 append("://")
             }
 
@@ -138,7 +138,7 @@ class RouteGraph internal constructor(
                         isExactDeepLink = deepLink.isExactDeepLink()
                     )
                 } else {
-                    throw MissingThrowable("destination", "deeplink")
+                    throw MissingThrowable("destination", "deeplink('$uri')")
                 }
             }
         }
@@ -183,7 +183,7 @@ class RouteGraph internal constructor(
         fun build(): RouteGraph {
             return RouteGraph(graphName).apply {
                 if (deepLinkConfig != null) {
-                    setPath(deepLinkConfig.path)
+                    setPath(deepLinkConfig.prefixPath)
                 }
                 for ((destination, creator) in routeList) {
                     this.addRoute(destination, CreateRoutingImpl(creator))
@@ -213,5 +213,5 @@ fun routeGraph(
 }
 
 data class DeepLinkConfig(
-    val path: String
+    val prefixPath: String
 )
