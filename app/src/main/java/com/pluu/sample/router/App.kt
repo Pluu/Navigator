@@ -21,6 +21,10 @@ class App : Application() {
         Navigator.registerConfig(config)
 
         Timber.d("Init Navigator")
+
+        ///////////////////////////////////////////////////////////////////////////
+        // Register provider
+        ///////////////////////////////////////////////////////////////////////////
         listOf(
             // Simple Provider pattern (Function)
             com.pluu.sample.featurehome.navigator.Home_Route_Provider,
@@ -39,7 +43,11 @@ class App : Application() {
             it.provide()
         }
 
+        ///////////////////////////////////////////////////////////////////////////
+        // Register Graph
+        ///////////////////////////////////////////////////////////////////////////
         // Graph provider pattern
         Navigator.addDestinations(Feature1Graph)
+        // or Feature1Graph.register()
     }
 }
