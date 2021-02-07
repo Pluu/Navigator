@@ -1,15 +1,15 @@
 package com.pluu.sample.featurehome
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.pluu.navigator.Navigator
 import com.pluu.sample.featurehome.databinding.ActivityHomeBinding
 import com.pluu.sample.routeconst.Routes1
 import com.pluu.utils.showToast
 import com.pluu.utils.viewBinding
 
-class HomeActivity: AppCompatActivity(R.layout.activity_home) {
+class HomeActivity : AppCompatActivity(R.layout.activity_home) {
     private val binding by viewBinding(ActivityHomeBinding::bind)
 
     private val sampleRequestCode = 100
@@ -17,6 +17,7 @@ class HomeActivity: AppCompatActivity(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Provider
         binding.btnGo.setOnClickListener {
             Navigator.of(this)
                 .startForResult(Routes1.Feature1, sampleRequestCode)
@@ -38,6 +39,12 @@ class HomeActivity: AppCompatActivity(R.layout.activity_home) {
             if (!executedDeepLink) {
                 showToast("Undefined DeepLink")
             }
+        }
+
+        // Graph
+        binding.btnGoOnGraph.setOnClickListener {
+            Navigator.of(this)
+                .start(Routes1.Feature1_Graph)
         }
     }
 

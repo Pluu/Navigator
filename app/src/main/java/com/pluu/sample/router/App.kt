@@ -1,7 +1,10 @@
 package com.pluu.sample.router
 
 import android.app.Application
+import com.pluu.navigator.DeepLinkConfig
+import com.pluu.navigator.Navigator
 import com.pluu.navigator.NavigatorController
+import com.pluu.sample.feature1.navigator.Feature1Graph
 import timber.log.Timber
 
 class App : Application() {
@@ -12,7 +15,13 @@ class App : Application() {
 
     // Sample
     private fun initNavigator() {
-        NavigatorController.setConfig()
+        val config = NavigatorController.Config(
+            deepLinkConfig = DeepLinkConfig(
+                path = "pluu"
+            )
+        )
+
+        Navigator.registerConfig(config)
 
         Timber.d("Init Navigator")
         listOf(
@@ -26,5 +35,7 @@ class App : Application() {
         ).forEach {
             it.provide()
         }
+
+        Navigator.addDestinations(Feature1Graph)
     }
 }

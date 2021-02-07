@@ -10,6 +10,7 @@ object Home {
 
 object Routes1 {
     object Feature1 : Route()
+    object Feature1_Graph : Route()
 }
 
 object Routes2 {

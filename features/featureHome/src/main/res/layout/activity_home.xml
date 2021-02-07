@@ -12,8 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Navigator Sample"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Provider"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnGo"
@@ -42,6 +49,29 @@
         android:layout_marginTop="10dp"
         android:backgroundTint="@android:color/white"
         android:text="Deep Link > Feature1 (QueryString)"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="#00BCD4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Graph"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnGoOnGraph"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/white"
+        android:text="Route run > Feature1"
         android:textAllCaps="false"
         android:textColor="@android:color/black" />
 
