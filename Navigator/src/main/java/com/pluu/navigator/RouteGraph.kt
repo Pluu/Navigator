@@ -37,14 +37,7 @@ class RouteGraph internal constructor(
             return null
         }
 
-        addDeepLink(
-            NavDeepLink(
-                createDeepLinkPath(
-                    NavigatorController.config.deepLinkConfig,
-                    destination.path
-                )
-            )
-        )
+        addDeepLink(NavDeepLink(createDeepLinkPath(destination.path)))
         return addRoute(destination, ExecuteRoutingImpl(executor))
     }
 
@@ -92,8 +85,8 @@ class RouteGraph internal constructor(
     }
 
     internal fun createDeepLinkPath(
+        path: String,
         deepLinkConfig: DeepLinkConfig? = null,
-        path: String
     ) = buildString {
         if (path.hasScheme()) {
             append(path.trimUriSeparator())
@@ -103,10 +96,14 @@ class RouteGraph internal constructor(
                 append(NavigatorController.config.deepLinkConfig?.path)
                 append("://")
             }
-            append(baseUrl.trimUriSeparator())
+
+            val trimBaseUrl = baseUrl.trimUriSeparator()
+            append(trimBaseUrl)
             val cleanPath = path.trimUriSeparator()
             if (cleanPath.isNotEmpty()) {
-                append("/")
+                if (trimBaseUrl.isNotEmpty()) {
+                    append("/")
+                }
                 append(cleanPath)
             }
         }
@@ -163,6 +160,7 @@ class RouteGraph internal constructor(
     ) {
         private val routeList = mutableListOf<Pair<Destination, INTENT_CREATOR>>()
         private val deepLinkList = mutableListOf<Pair<String, LINK_EXECUTOR>>()
+        private val graphList = mutableListOf<RouteGraph>()
 
         fun addRoute(
             route: Destination,
@@ -178,6 +176,10 @@ class RouteGraph internal constructor(
             deepLinkList.add(path to executor)
         }
 
+        fun addGraph(routeGraph: RouteGraph) {
+            graphList.add(routeGraph)
+        }
+
         fun build(): RouteGraph {
             return RouteGraph(graphName).apply {
                 if (deepLinkConfig != null) {
@@ -188,9 +190,12 @@ class RouteGraph internal constructor(
                 }
                 for ((path, executor) in deepLinkList) {
                     this.addDeepLink(
-                        DeepLink(this.createDeepLinkPath(deepLinkConfig, path)),
+                        DeepLink(this.createDeepLinkPath(path, deepLinkConfig)),
                         executor
                     )
+                }
+                for (graph in graphList) {
+                    this.addRouteGraph(graph)
                 }
             }
         }
