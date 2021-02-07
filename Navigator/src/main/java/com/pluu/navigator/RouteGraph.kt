@@ -10,6 +10,7 @@ import com.pluu.navigator.deeplink.NavDeepLink
 import com.pluu.navigator.exception.MissingThrowable
 import com.pluu.navigator.util.hasScheme
 import com.pluu.navigator.util.toIteratorWithRemove
+import com.pluu.navigator.util.trimUriSeparator
 
 class RouteGraph internal constructor() : Destination() {
     private val routingNodes = ArrayMap<Destination, Routing>()
@@ -78,21 +79,15 @@ class RouteGraph internal constructor() : Destination() {
             append(path)
         } else {
             val baseUrl = deepLinkConfig?.path.orEmpty()
-            val separatorIdxBaseUrl = if (baseUrl.last() == '/') {
-                -1
-            } else {
-                0
-            }
-            append(baseUrl.substring(0, baseUrl.length + separatorIdxBaseUrl))
             if (!baseUrl.hasScheme()) {
+                append(NavigatorController.config.deepLinkConfig?.path)
                 append("://")
             }
-            val excludeSeparatorIndex = if (path.first() == '/') {
-                1
-            } else {
-                0
+            append(baseUrl.trimUriSeparator())
+            if (last() != '/') {
+                append("/")
             }
-            append(path.substring(startIndex = excludeSeparatorIndex))
+            append(path.trimUriSeparator())
         }
     }
 
