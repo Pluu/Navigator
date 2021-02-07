@@ -46,6 +46,14 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             Navigator.of(this)
                 .start(Routes1.Feature1_Graph)
         }
+        binding.btnDeepLinkDefault.setOnClickListener {
+            Navigator.of(this)
+                .execute("pluu://feature1")
+        }
+        binding.btnDeepLinkSub.setOnClickListener {
+            Navigator.of(this)
+                .execute("pluu://feature1/1")
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
