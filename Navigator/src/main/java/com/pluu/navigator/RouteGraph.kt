@@ -208,6 +208,10 @@ class RouteGraph internal constructor(
             }
         }
     }
+
+    fun register() {
+        Navigator.addDestinations(this)
+    }
 }
 
 fun routeGraph(
