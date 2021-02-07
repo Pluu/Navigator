@@ -16,6 +16,7 @@ object NavigatorController {
     }
 
     class Config(
+        val deepLinkConfig: DeepLinkConfig? = null,
         val logger: Logger = NavigatorLogger()
     )
 }

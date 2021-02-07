@@ -1,19 +1,14 @@
 package com.pluu.navigator
 
-import com.pluu.navigator.util.enclosingClassFullSimpleName
-
 const val ROUTE_PARAMS_KEY = "ROUTE_PARAMS_KEY"
 
-abstract class AbstractRoute : Destination {
-    // Default : Class Path
-    override val path = javaClass.enclosingClassFullSimpleName()
-
+abstract class AbstractRoute : Destination() {
     fun register(creator: INTENT_CREATOR) {
-        Navigator.registerRoute(this, creator)
+        Navigator.addDestination(this, creator)
     }
 
     fun register(executor: LINK_EXECUTOR) {
-        Navigator.registerRoute(this, executor)
+        Navigator.addDestination(this, executor)
     }
 }
 

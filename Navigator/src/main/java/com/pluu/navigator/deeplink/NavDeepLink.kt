@@ -2,6 +2,7 @@ package com.pluu.navigator.deeplink
 
 import android.net.Uri
 import androidx.core.net.toUri
+import com.pluu.navigator.util.hasScheme
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -12,8 +13,6 @@ import java.util.regex.Pattern
 internal class NavDeepLink(
     val uri: String
 ) {
-    private val SCHEME_PATTERN = "^[a-zA-Z]+[+\\w\\-.]*:".toPattern()
-
     private val arguments = ArrayList<String>()
     private val mParamArgMap = HashMap<String, ParamQuery>()
 
@@ -28,7 +27,7 @@ internal class NavDeepLink(
 
             val uriRegex = StringBuilder("^")
 
-            if (!SCHEME_PATTERN.matcher(uri).find()) {
+            if (!uri.hasScheme()) {
                 uriRegex.append("http[s]?://")
             }
             val fillInPattern = Pattern.compile("\\{(.+?)\\}")

@@ -9,39 +9,47 @@ import com.pluu.starter.FragmentStarter
 
 object Navigator {
 
-    private val routingProvider = RoutingProviderImpl()
+    private val coreGraph = RouteGraph()
 
-    internal fun registerRoute(
+    internal fun addDestination(
         route: Destination,
         creator: INTENT_CREATOR
     ) {
-        if (routingProvider.containsRoute(route)) {
+        if (coreGraph.containsRoute(route)) {
             throw AlreadyRegisteredException(route.toString())
         } else {
-            routingProvider.addRouting(route, creator)
+            coreGraph.addRoute(route, creator)
             logger.d("Added routing ${route.path}")
         }
     }
 
-    internal fun registerRoute(
+    internal fun addDestination(
         route: Destination,
         executor: LINK_EXECUTOR
     ) {
-        if (routingProvider.containsRoute(route)) {
+        if (coreGraph.containsRoute(route)) {
             throw AlreadyRegisteredException(route.toString())
         } else {
-            routingProvider.addDeepLink(route, executor)
+            coreGraph.addDeepLink(route, executor)
             logger.d("Added deeplink ${route.path}")
         }
     }
 
+    fun addDestinations(graph: RouteGraph) {
+        coreGraph.addRouteGraph(graph)
+    }
+
     fun of(activity: Activity) = NavigatorStarter(
         ActivityStarter(activity),
-        routingProvider
+        coreGraph
     )
 
     fun of(fragment: Fragment) = NavigatorStarter(
         FragmentStarter(fragment),
-        routingProvider
+        coreGraph
     )
+
+    fun registerConfig(config: NavigatorController.Config) {
+        NavigatorController.setConfig(config)
+    }
 }

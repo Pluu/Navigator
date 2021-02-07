@@ -9,7 +9,7 @@ import com.pluu.starter.Starter
 
 class NavigatorStarter(
     private val starter: Starter,
-    private val routingProvider: RoutingProvider
+    private val graph: RouteGraph
 ) {
     ///////////////////////////////////////////////////////////////////////////
     // Navigation
@@ -69,13 +69,13 @@ class NavigatorStarter(
         param: RouteParam? = null,
         navOption: NavOptions?
     ) {
-        val containRoute = routingProvider.containsRoute(destination)
+        val containRoute = graph.containsRoute(destination)
         if (!containRoute) {
             throw MissingRouteThrowable(routeName = destination.toString())
         }
         starter.context ?: return
 
-        val routing = routingProvider.getRequiredRouting(destination) as? CreateRouting ?: return
+        val routing = graph.getRequiredRouting(destination) as? CreateRouting ?: return
         logger.d("matched route ${destination.path}")
 
         val intent = routing.create(starter)
@@ -107,8 +107,8 @@ class NavigatorStarter(
     }
 
     fun execute(request: DeepLinkRequest): Boolean {
-        val deepLinkMatch = routingProvider.matchDeepLink(request) ?: return false
-        val routing = routingProvider.getRequiredRouting(
+        val deepLinkMatch = graph.matchDeepLink(request) ?: return false
+        val routing = graph.getRequiredRouting(
             deepLinkMatch.destination
         ) as? ExecuteRouting ?: return false
         logger.d("matched deeplink ${request.uri}")

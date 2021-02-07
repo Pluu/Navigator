@@ -1,5 +1,12 @@
 package com.pluu.navigator
 
-interface Destination {
-    val path: String
+import com.pluu.navigator.util.enclosingClassFullSimpleName
+
+open class Destination {
+    var path: String = javaClass.enclosingClassFullSimpleName()
+        private set
+
+    fun setPath(path: String) {
+        this.path = path
+    }
 }
