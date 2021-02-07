@@ -8,7 +8,6 @@ import com.pluu.navigator.deeplink.DeepLink
 import com.pluu.navigator.deeplink.DeepLinkMatch
 import com.pluu.navigator.deeplink.DeepLinkRequest
 import com.pluu.navigator.deeplink.NavDeepLink
-import com.pluu.navigator.exception.MissingThrowable
 import com.pluu.navigator.util.hasScheme
 import com.pluu.navigator.util.toIteratorWithRemove
 import com.pluu.navigator.util.trimUriSeparator
@@ -37,8 +36,16 @@ class RouteGraph internal constructor(
             return null
         }
 
-        addDeepLink(NavDeepLink(createDeepLinkPath(destination.path)))
-        return addRoute(destination, ExecuteRoutingImpl(executor))
+        val path = createDeepLinkPath(destination.path)
+        val completedDestination = destination.takeIf {
+            it.path.hasScheme()
+        } ?: let {
+            logger.d("[$name] Migration ${destination.path} to ${path} ")
+            DeepLink(path)
+        }
+
+        addDeepLink(NavDeepLink(path))
+        return addRoute(completedDestination, ExecuteRoutingImpl(executor))
     }
 
     internal fun addRoute(
@@ -128,17 +135,18 @@ class RouteGraph internal constructor(
     fun matchDeepLink(request: DeepLinkRequest): DeepLinkMatch? {
         val uri = request.uri.toString().trimUriSeparator()
         for (deepLink in deepLinks.valueIterator()) {
-            if (deepLink.match(uri.toString())) {
+            if (deepLink.match(uri)) {
                 val destination = findDestination(deepLink.uri)
-                if (destination != null) {
-                    return DeepLinkMatch(
+                return if (destination != null) {
+                    DeepLinkMatch(
                         request = request,
                         destination = destination,
                         args = deepLink.matchingArguments(uri).orEmpty(),
                         isExactDeepLink = deepLink.isExactDeepLink()
                     )
                 } else {
-                    throw MissingThrowable("destination", "deeplink('$uri')")
+                    logger.w("no destination found for deeplink('$uri')")
+                    null
                 }
             }
         }
