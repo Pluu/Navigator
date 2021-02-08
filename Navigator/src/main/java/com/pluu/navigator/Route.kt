@@ -10,6 +10,10 @@ abstract class AbstractRoute : Destination() {
     fun register(executor: LINK_EXECUTOR) {
         Navigator.addDestination(this, executor)
     }
+
+    fun register(executor: AbstractExecutor) {
+        Navigator.addDestinationWithExecutor(this, executor)
+    }
 }
 
 abstract class Route : AbstractRoute()

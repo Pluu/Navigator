@@ -7,6 +7,19 @@ import com.pluu.starter.Starter
 typealias INTENT_CREATOR = (Starter) -> Intent
 typealias LINK_EXECUTOR = (Starter, DeepLinkMatch) -> Unit
 
+fun LINK_EXECUTOR.toRouting(): AbstractExecutor = object : ExecuteRouting {
+    override fun execute(starter: Starter, matched: DeepLinkMatch) {
+        invoke(starter, matched)
+    }
+}
+
+inline fun <reified T : Command> String.toDeepLinkRouting(): AbstractExecutor =
+    CommandRouting(T::class.java)
+
+///////////////////////////////////////////////////////////////////////////
+// Route
+///////////////////////////////////////////////////////////////////////////
+
 interface Routing
 
 interface CreateRouting : Routing {
@@ -19,15 +32,18 @@ internal class CreateRoutingImpl(
     override fun create(starter: Starter) = creator(starter)
 }
 
-interface ExecuteRouting : Routing {
-    fun execute(starter: Starter, matched: DeepLinkMatch)
+///////////////////////////////////////////////////////////////////////////
+// DeepLink
+///////////////////////////////////////////////////////////////////////////
+
+interface AbstractExecutor : Routing
+
+interface Command {
+    fun execute(starter: Starter)
 }
 
-internal class ExecuteRoutingImpl(
-    private val executor: LINK_EXECUTOR
-) : ExecuteRouting {
-    override fun execute(
-        starter: Starter,
-        matched: DeepLinkMatch
-    ) = executor(starter, matched)
+class CommandRouting<T : Command>(val command: Class<T>) : AbstractExecutor
+
+interface ExecuteRouting : AbstractExecutor {
+    fun execute(starter: Starter, matched: DeepLinkMatch)
 }

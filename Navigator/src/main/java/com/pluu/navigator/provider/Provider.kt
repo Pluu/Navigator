@@ -1,8 +1,6 @@
 package com.pluu.navigator.provider
 
-import com.pluu.navigator.AbstractRoute
-import com.pluu.navigator.INTENT_CREATOR
-import com.pluu.navigator.LINK_EXECUTOR
+import com.pluu.navigator.*
 import com.pluu.navigator.deeplink.DeepLink
 
 interface Provider {
@@ -26,11 +24,19 @@ fun routeProvider(
     }
 }
 
+inline fun <reified T : Command> deepLinkProvider(
+    deepLink: String
+) = object : Provider {
+    override fun provide() {
+        DeepLink(deepLink).register(deepLink.toDeepLinkRouting<T>())
+    }
+}
+
 fun deepLinkProvider(
     deepLink: String,
     executor: LINK_EXECUTOR
 ) = object : Provider {
     override fun provide() {
-        DeepLink(deepLink).register(executor)
+        DeepLink(deepLink).register(executor.toRouting())
     }
 }

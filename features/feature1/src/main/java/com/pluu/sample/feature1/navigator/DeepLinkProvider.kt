@@ -1,20 +1,47 @@
 package com.pluu.sample.feature1.navigator
 
+import com.pluu.navigator.Command
 import com.pluu.navigator.provider.deepLinkProvider
+import com.pluu.navigator.util.toArray
 import com.pluu.sample.feature1.Feature1Activity
+import com.pluu.starter.Starter
 import com.pluu.utils.buildIntent
 
-val Feature1_DeepLink_1 = deepLinkProvider("pluu://feature1") { starter, deepLinkMatch ->
-    val context = starter.context ?: return@deepLinkProvider
-    starter.start(context.buildIntent<Feature1Activity>())
+///////////////////////////////////////////////////////////////////////////
+// DeepLink Functional Pattern Sample
+///////////////////////////////////////////////////////////////////////////
+
+// Provider
+private val DeepLink_Simple =
+    deepLinkProvider("pluu://feature1") { starter, _ ->
+        starter.start(starter.context!!.buildIntent<Feature1Activity>())
+    }
+
+// Provider (Relative Path)
+private val DeepLink_Relative_Path =
+    deepLinkProvider("feature1/sample1?type={type}") { starter, deepLinkMatch ->
+        val args = deepLinkMatch.args.toArray()
+        starter.start(starter.context!!.buildIntent<Feature1Activity>(*args))
+    }
+
+// Provider (Command)
+private val DeepLink_Command =
+    deepLinkProvider<SampleCommand>("pluu://feature1/sample2?type={value}")
+
+class SampleCommand(
+    private val value: Int
+) : Command {
+    override fun execute(starter: Starter) {
+        starter.start(starter.context!!.buildIntent<Feature1Activity>("command" to value))
+    }
 }
 
-val Feature1_DeepLink_2 = deepLinkProvider("feature1/sample1?type={type}") { starter, deepLinkMatch ->
-    val context = starter.context ?: return@deepLinkProvider
+///////////////////////////////////////////////////////////////////////////
+// Definition
+///////////////////////////////////////////////////////////////////////////
 
-    val args = deepLinkMatch.args.map { (key, value) ->
-        key to value
-    }.toTypedArray()
-
-    starter.start(context.buildIntent<Feature1Activity>(*args))
-}
+val sample_feature1_function_pattern = listOf(
+    DeepLink_Simple,
+    DeepLink_Relative_Path,
+    DeepLink_Command
+)

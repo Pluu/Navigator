@@ -9,6 +9,7 @@ import com.pluu.starter.FragmentStarter
 object Navigator {
 
     private val coreGraph = RouteGraph()
+    private val deepLinkExecutor = DeepLinkExecutor()
 
     internal fun addDestination(
         route: Destination,
@@ -21,6 +22,13 @@ object Navigator {
         route: Destination,
         executor: LINK_EXECUTOR
     ) {
+        addDestinationWithExecutor(route, executor.toRouting())
+    }
+
+    internal fun addDestinationWithExecutor(
+        route: Destination,
+        executor: AbstractExecutor
+    ) {
         coreGraph.addDeepLink(route, executor)
     }
 
@@ -30,12 +38,14 @@ object Navigator {
 
     fun of(activity: Activity) = NavigatorStarter(
         ActivityStarter(activity),
-        coreGraph
+        coreGraph,
+        deepLinkExecutor
     )
 
     fun of(fragment: Fragment) = NavigatorStarter(
         FragmentStarter(fragment),
-        coreGraph
+        coreGraph,
+        deepLinkExecutor
     )
 
     fun registerConfig(config: NavigatorController.Config) {

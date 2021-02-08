@@ -3,10 +3,15 @@ package com.pluu.sample.feature1.navigator
 import android.content.Intent
 import com.pluu.navigator.DeepLinkConfig
 import com.pluu.navigator.routeGraph
+import com.pluu.navigator.util.toArray
 import com.pluu.sample.feature1.Feature1Activity
 import com.pluu.sample.feature1.Feature1SubActivity
 import com.pluu.sample.routeconst.Routes1
 import com.pluu.utils.buildIntent
+
+///////////////////////////////////////////////////////////////////////////
+// Route Graph Sample
+///////////////////////////////////////////////////////////////////////////
 
 val Feature1Graph = routeGraph(
     graphName = "feature1",
@@ -17,17 +22,21 @@ val Feature1Graph = routeGraph(
     }
 
     addDeepLink("/") { starter, _ ->
-        val context = starter.context ?: return@addDeepLink
-        starter.start(context.buildIntent<Feature1Activity>())
+        starter.start(starter.context!!.buildIntent<Feature1Activity>())
     }
 
-    addDeepLink("1") { starter, _ ->
-        val context = starter.context ?: return@addDeepLink
-        starter.start(context.buildIntent<Feature1SubActivity>())
+    addDeepLink("/sample1?type={type}") { starter, deepLinkMatch ->
+        val args = deepLinkMatch.args.toArray()
+        starter.start(starter.context!!.buildIntent<Feature1Activity>(*args))
     }
+
+    addDeepLink("sub") { starter, _ ->
+        starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
+    }
+
+    // TODO : Command sample
 
     addDeepLink("luckystar://izumi/konata") { starter, _ ->
-        val context = starter.context ?: return@addDeepLink
-        starter.start(context.buildIntent<Feature1SubActivity>())
+        starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
     }
 }

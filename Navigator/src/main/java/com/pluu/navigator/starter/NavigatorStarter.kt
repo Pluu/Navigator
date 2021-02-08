@@ -9,7 +9,8 @@ import com.pluu.starter.Starter
 
 class NavigatorStarter(
     private val starter: Starter,
-    private val graph: RouteGraph
+    private val graph: RouteGraph,
+    private val deepLinkExecutor: DeepLinkExecutor
 ) {
     ///////////////////////////////////////////////////////////////////////////
     // Navigation
@@ -110,9 +111,8 @@ class NavigatorStarter(
         val deepLinkMatch = graph.matchDeepLink(request) ?: return false
         val routing = graph.getRequiredRouting(
             deepLinkMatch.destination
-        ) as? ExecuteRouting ?: return false
+        ) as? AbstractExecutor ?: return false
         logger.d("matched deeplink ${request.uri}")
-        routing.execute(starter, deepLinkMatch)
-        return true
+        return deepLinkExecutor.executor(routing, starter, deepLinkMatch)
     }
 }
