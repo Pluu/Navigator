@@ -3,7 +3,7 @@ package com.pluu.sample.router
 import android.app.Application
 import com.pluu.navigator.Navigator
 import com.pluu.navigator.NavigatorController
-import com.pluu.sample.feature1.navigator.Feature1Graph
+import com.pluu.sample.feature1.navigator.Feature1_Graph
 import com.pluu.sample.feature1.navigator.sample_feature1_function_pattern
 import timber.log.Timber
 
@@ -48,7 +48,7 @@ class App : Application() {
         // Register Graph
         ///////////////////////////////////////////////////////////////////////////
         // Graph provider pattern
-        Navigator.addDestinations(Feature1Graph)
+        Navigator.addDestinations(Feature1_Graph)
         // or Feature1Graph.register()
     }
 }

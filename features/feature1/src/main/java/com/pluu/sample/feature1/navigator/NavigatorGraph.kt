@@ -2,6 +2,7 @@ package com.pluu.sample.feature1.navigator
 
 import android.content.Intent
 import com.pluu.navigator.DeepLinkConfig
+import com.pluu.navigator.RouteGraph
 import com.pluu.navigator.routeGraph
 import com.pluu.navigator.util.toArray
 import com.pluu.sample.feature1.Feature1Activity
@@ -13,7 +14,8 @@ import com.pluu.utils.buildIntent
 // Route Graph Sample
 ///////////////////////////////////////////////////////////////////////////
 
-val Feature1Graph = routeGraph(
+// Functional pattern
+val Feature1_Graph = routeGraph(
     graphName = "feature1",
     deepLinkConfig = DeepLinkConfig("feature1")
 ) {
@@ -39,4 +41,12 @@ val Feature1Graph = routeGraph(
     addDeepLink("luckystar://izumi/konata") { starter, _ ->
         starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
     }
+}
+
+// Builder pattern
+val Feature1_GraphBuilder = RouteGraph.Builder(
+    graphName = "feature1",
+    deepLinkConfig = DeepLinkConfig("feature1")
+).apply {
+    // TODO
 }

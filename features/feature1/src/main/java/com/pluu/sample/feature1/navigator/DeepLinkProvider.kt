@@ -32,7 +32,7 @@ class SampleCommand(
     private val value: Int
 ) : Command {
     override fun execute(starter: Starter) {
-        starter.start(starter.context!!.buildIntent<Feature1Activity>("command" to value))
+        starter.start(starter.context!!.buildIntent<Feature1Activity>("value" to value))
     }
 }
 
