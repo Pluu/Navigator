@@ -129,8 +129,9 @@ sampleProvider.provide()
 
 ### Register Pattern#2 : Functional
 
+Default pattern
+
 ```kotlin
-// Simple function provider
 import com.pluu.navigator.provider.deepLinkProvider
 
 // Step1. Define DeepLink
@@ -153,6 +154,20 @@ val DeepLink_Relative_Path: Provider = deepLinkProvider("feature1/sample1?type={
     val intent = Intent(starter.context!!, SampleActivity::class.java)
     starter.start(intent)
 }
+
+// Step2. Register route
+val sampleProvider: Provider = /** Provider */
+sampleProvider.provide()
+```
+
+Command pattern
+
+- Instance the `Command` object using `Gson`
+
+```kotlin
+import com.pluu.navigator.provider.deepLinkProvider
+
+// Step1. Define DeepLink
 
 // Provider : Command
 val DeepLink_Command: Provider = deepLinkProvider<SampleCommand>("pluu://feature1/sample2?type={type}")
@@ -182,11 +197,13 @@ import com.pluu.navigator.Navigator
 val sampleGraph: RouteGraph.Builder = RouteGraph.Builder(
     graphName = "feature1",
     deepLinkConfig = DeepLinkConfig("feature1")
-).apply { 
+).apply {   
+    // Add Route
     addRoute(/** */) { starter ->
         Intent(starter.context!!, SampleActivity::class.java)
     }
   
+    // Add DeepLink
     addDeepLink(/** */) { starter, deepLinkMatch -> 
         val intent = Intent(starter.context!!, SampleActivity::class.java)
         starter.start(intent)
