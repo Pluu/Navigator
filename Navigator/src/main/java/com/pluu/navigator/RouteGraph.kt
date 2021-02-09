@@ -10,6 +10,7 @@ import com.pluu.navigator.deeplink.DeepLinkRequest
 import com.pluu.navigator.deeplink.NavDeepLink
 import com.pluu.navigator.util.hasScheme
 import com.pluu.navigator.util.toIteratorWithRemove
+import com.pluu.navigator.util.toRouting
 import com.pluu.navigator.util.trimUriSeparator
 
 class RouteGraph internal constructor(
@@ -74,6 +75,7 @@ class RouteGraph internal constructor(
     fun addRouteGraph(
         routeGraph: RouteGraph
     ) {
+        logger.d("from [${routeGraph.name}] to [$name]")
         // Add, Routing
         val routeIterator = routeGraph.routeIterator()
         while (routeIterator.hasNext()) {
@@ -177,18 +179,18 @@ class RouteGraph internal constructor(
             routeList[route] = creator
         }
 
-        fun <T : Command> addDeepLink(
-            path: String,
-            executor: CommandRouting<T>
-        ) {
-            deepLinkList[path] = executor
-        }
-
         fun addDeepLink(
             path: String,
             executor: LINK_EXECUTOR
         ) {
-            deepLinkList[path] = executor.toRouting()
+            addDeepLink(path, executor.toRouting())
+        }
+
+        fun addDeepLink(
+            path: String,
+            executor: AbstractExecutor
+        ) {
+            deepLinkList[path] = executor
         }
 
         fun addGraph(routeGraph: RouteGraph) {
@@ -234,3 +236,9 @@ fun routeGraph(
 data class DeepLinkConfig(
     val prefixPath: String
 )
+
+inline fun <reified T : Command> RouteGraph.Builder.addDeepLink(
+    path: String
+) {
+    addDeepLink(path, CommandRouting(T::class.java))
+}

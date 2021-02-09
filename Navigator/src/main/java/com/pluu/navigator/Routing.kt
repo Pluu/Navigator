@@ -7,15 +7,6 @@ import com.pluu.starter.Starter
 typealias INTENT_CREATOR = (Starter) -> Intent
 typealias LINK_EXECUTOR = (Starter, DeepLinkMatch) -> Unit
 
-fun LINK_EXECUTOR.toRouting(): AbstractExecutor = object : ExecuteRouting {
-    override fun execute(starter: Starter, matched: DeepLinkMatch) {
-        invoke(starter, matched)
-    }
-}
-
-inline fun <reified T : Command> String.toDeepLinkRouting(): AbstractExecutor =
-    CommandRouting(T::class.java)
-
 ///////////////////////////////////////////////////////////////////////////
 // Route
 ///////////////////////////////////////////////////////////////////////////
