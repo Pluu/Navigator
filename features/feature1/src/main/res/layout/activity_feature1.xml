@@ -17,26 +17,6 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnGo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="?attr/colorOnSurface"
-        android:text="Route run > Feature2"
-        android:textAllCaps="false"
-        android:textColor="?attr/colorSurface" />
-
-    <Button
-        android:id="@+id/btnDeepLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="?attr/colorOnSurface"
-        android:text="Deep Link > Feature2 (Fixed:100)"
-        android:textAllCaps="false"
-        android:textColor="?attr/colorSurface" />
-
     <LinearLayout
         android:id="@+id/receiveLayout"
         android:layout_width="match_parent"

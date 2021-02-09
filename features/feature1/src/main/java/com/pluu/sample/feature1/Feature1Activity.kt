@@ -23,18 +23,5 @@ class Feature1Activity : AppCompatActivity(R.layout.activity_feature1) {
         }
 
         binding.receiveLayout.isGone = intent.extras?.isEmpty ?: true
-
-        binding.btnGo.setOnClickListener {
-            Navigator.of(this).start(
-                route = Routes2.Feature2,
-                param = SampleParam(
-                    (0..100_000_000).random()
-                )
-            )
-        }
-
-        binding.btnDeepLink.setOnClickListener {
-            Navigator.of(this).execute("pluu://feature2")
-        }
     }
 }

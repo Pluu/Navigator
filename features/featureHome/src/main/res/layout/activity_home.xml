@@ -1,98 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".HomeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Navigator Sample"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Provider"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btnGo"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Route run > Feature1"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black" />
-
-    <Button
-        android:id="@+id/btnDeepLinkSimple"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Deep Link > Feature1 (Simple)"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black" />
-
-    <Button
-        android:id="@+id/btnDeepLinkSimple_QueryString"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Deep Link > Feature1 (QueryString)"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="20dp"
-        android:background="#00BCD4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Graph"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btnGoOnGraph"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Route run > Feature1"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black" />
-
-    <Button
-        android:id="@+id/btnDeepLinkDefault"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Deep Link > Feature1 (Default)"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black" />
-
-    <Button
-        android:id="@+id/btnDeepLinkSub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Deep Link > Feature1 (Sub)"
-        android:textAllCaps="false"
-        android:textColor="@android:color/black" />
-
-</LinearLayout>
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp" />
+</ScrollView>
