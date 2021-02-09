@@ -8,7 +8,7 @@ import com.pluu.sample.feature2.Feature2Activity;
 
 import kotlin.Unit;
 
-public class DeepLinkProviderForJava implements Provider {
+class DeepLinkProviderForJava implements Provider {
     @Override
     public void provide() {
         new DeepLink("pluu://feature2Java").register((starter, deepLinkMatch) -> {

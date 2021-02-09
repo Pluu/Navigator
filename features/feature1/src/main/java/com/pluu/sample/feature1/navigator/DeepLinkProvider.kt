@@ -28,7 +28,7 @@ private val DeepLink_Relative_Path =
 private val DeepLink_Command =
     deepLinkProvider<SampleCommand>("pluu://feature1/sample2?type={value}")
 
-class SampleCommand(
+private class SampleCommand(
     private val value: Int
 ) : Command {
     override fun execute(starter: Starter) {
@@ -37,7 +37,7 @@ class SampleCommand(
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// Definition
+// Sample Definition
 ///////////////////////////////////////////////////////////////////////////
 
 val sample_feature1_function_pattern = listOf(

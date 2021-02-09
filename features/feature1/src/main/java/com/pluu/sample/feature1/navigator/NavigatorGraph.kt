@@ -15,7 +15,7 @@ import com.pluu.utils.buildIntent
 ///////////////////////////////////////////////////////////////////////////
 
 // Functional pattern
-val Feature1_Graph = routeGraph(
+private val Feature1_Graph = routeGraph(
     graphName = "feature1",
     deepLinkConfig = DeepLinkConfig("feature1")
 ) {
@@ -44,9 +44,17 @@ val Feature1_Graph = routeGraph(
 }
 
 // Builder pattern
-val Feature1_GraphBuilder = RouteGraph.Builder(
+private val Feature1_GraphBuilder = RouteGraph.Builder(
     graphName = "feature1",
     deepLinkConfig = DeepLinkConfig("feature1")
 ).apply {
     // TODO
 }
+
+///////////////////////////////////////////////////////////////////////////
+// Sample Definition
+///////////////////////////////////////////////////////////////////////////
+
+val sample_feature1_graph_function_pattern = listOf(
+    Feature1_Graph
+)

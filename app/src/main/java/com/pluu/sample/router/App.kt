@@ -3,8 +3,10 @@ package com.pluu.sample.router
 import android.app.Application
 import com.pluu.navigator.Navigator
 import com.pluu.navigator.NavigatorController
-import com.pluu.sample.feature1.navigator.Feature1_Graph
 import com.pluu.sample.feature1.navigator.sample_feature1_function_pattern
+import com.pluu.sample.feature1.navigator.sample_feature1_graph_function_pattern
+import com.pluu.sample.feature1.navigator.sample_feature1_provider_pattern
+import com.pluu.sample.feature2.navigator.sample_feature2_pattern
 import timber.log.Timber
 
 class App : Application() {
@@ -32,14 +34,9 @@ class App : Application() {
             // Simple Provider pattern (Function)
             com.pluu.sample.featurehome.navigator.Home_Route_Provider,
             // Provider pattern (Interface)
-            com.pluu.sample.feature1.navigator.RouteProvider(),
-            // Simple Provider pattern
-            com.pluu.sample.feature2.navigator.Feature1_Route_1,
-            // Provider pattern (Interface)
-            com.pluu.sample.feature2.navigator.DeepLinkProvider(),
-            // Java Sample pattern
-            com.pluu.sample.feature2.navigator.RouteProviderForJava(),
-            com.pluu.sample.feature2.navigator.DeepLinkProviderForJava(),
+            *sample_feature1_provider_pattern.toTypedArray(),
+            // Feature 2 samples
+            *sample_feature2_pattern.toTypedArray(),
         ).forEach {
             it.provide()
         }
@@ -47,8 +44,10 @@ class App : Application() {
         ///////////////////////////////////////////////////////////////////////////
         // Register Graph
         ///////////////////////////////////////////////////////////////////////////
-        // Graph provider pattern
-        Navigator.addDestinations(Feature1_Graph)
-        // or Feature1Graph.register()
+        listOf(
+            *sample_feature1_graph_function_pattern.toTypedArray()
+        ).forEach {
+            Navigator.addDestinations(it)
+        }
     }
 }

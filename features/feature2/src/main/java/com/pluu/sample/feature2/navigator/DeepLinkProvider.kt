@@ -7,7 +7,7 @@ import com.pluu.sample.feature2.Feature2Activity
 import com.pluu.sample.routeconst.SampleParam
 import com.pluu.utils.buildIntent
 
-class DeepLinkProvider : Provider {
+internal class DeepLinkProvider : Provider {
     override fun provide() {
         DeepLink("pluu://feature2").register { starter, _ ->
             starter.start(starter.context!!.buildIntent<Feature2Activity>(
