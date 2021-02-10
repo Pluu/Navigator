@@ -2,7 +2,7 @@ package com.pluu.navigator
 
 import android.content.Intent
 import com.pluu.navigator.deeplink.DeepLinkMatch
-import com.pluu.starter.Starter
+import com.pluu.navigator.starter.Starter
 
 typealias INTENT_CREATOR = (Starter) -> Intent
 typealias LINK_EXECUTOR = (Starter, DeepLinkMatch) -> Unit

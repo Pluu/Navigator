@@ -2,9 +2,9 @@ package com.pluu.sample.feature1.navigator
 
 import com.pluu.navigator.Command
 import com.pluu.navigator.provider.deepLinkProvider
+import com.pluu.navigator.starter.Starter
 import com.pluu.navigator.util.toArray
 import com.pluu.sample.feature1.Feature1Activity
-import com.pluu.starter.Starter
 import com.pluu.utils.buildIntent
 
 ///////////////////////////////////////////////////////////////////////////

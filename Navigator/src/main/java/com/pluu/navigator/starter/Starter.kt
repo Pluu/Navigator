@@ -1,4 +1,4 @@
-package com.pluu.starter
+package com.pluu.navigator.starter
 
 import android.app.Activity
 import android.content.Context

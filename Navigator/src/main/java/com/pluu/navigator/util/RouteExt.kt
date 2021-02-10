@@ -4,7 +4,7 @@ import com.pluu.navigator.*
 import com.pluu.navigator.deeplink.DeepLink
 import com.pluu.navigator.deeplink.DeepLinkMatch
 import com.pluu.navigator.provider.Provider
-import com.pluu.starter.Starter
+import com.pluu.navigator.starter.Starter
 
 fun LINK_EXECUTOR.toRouting(): AbstractExecutor = object : ExecuteRouting {
     override fun execute(starter: Starter, matched: DeepLinkMatch) {

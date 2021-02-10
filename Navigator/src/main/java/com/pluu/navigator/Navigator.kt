@@ -2,10 +2,10 @@ package com.pluu.navigator
 
 import android.app.Activity
 import androidx.fragment.app.Fragment
+import com.pluu.navigator.starter.ActivityStarter
+import com.pluu.navigator.starter.FragmentStarter
 import com.pluu.navigator.starter.NavigatorStarter
 import com.pluu.navigator.util.toRouting
-import com.pluu.starter.ActivityStarter
-import com.pluu.starter.FragmentStarter
 
 object Navigator {
 

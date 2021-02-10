@@ -2,13 +2,13 @@ package com.pluu.navigator
 
 import com.google.gson.Gson
 import com.pluu.navigator.deeplink.DeepLinkMatch
-import com.pluu.starter.Starter
+import com.pluu.navigator.starter.Starter
 import org.json.JSONObject
 
 class DeepLinkExecutor {
     private val gson = Gson()
 
-    fun executor(
+    fun execute(
         executor: AbstractExecutor,
         starter: Starter,
         deepLinkMatch: DeepLinkMatch

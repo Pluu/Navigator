@@ -5,7 +5,6 @@ import androidx.core.net.toUri
 import com.pluu.navigator.*
 import com.pluu.navigator.deeplink.DeepLinkRequest
 import com.pluu.navigator.exception.MissingRouteThrowable
-import com.pluu.starter.Starter
 
 class NavigatorStarter(
     private val starter: Starter,
@@ -113,6 +112,6 @@ class NavigatorStarter(
             deepLinkMatch.destination
         ) as? AbstractExecutor ?: return false
         logger.d("matched deeplink ${request.uri}")
-        return deepLinkExecutor.executor(routing, starter, deepLinkMatch)
+        return deepLinkExecutor.execute(routing, starter, deepLinkMatch)
     }
 }
