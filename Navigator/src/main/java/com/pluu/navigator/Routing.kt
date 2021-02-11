@@ -8,7 +8,7 @@ typealias INTENT_CREATOR = (Starter) -> Intent
 typealias LINK_EXECUTOR = (Starter, DeepLinkMatch) -> Unit
 
 ///////////////////////////////////////////////////////////////////////////
-// Route
+// Route Creator
 ///////////////////////////////////////////////////////////////////////////
 
 interface Routing
@@ -24,17 +24,17 @@ internal class CreateRoutingImpl(
 }
 
 ///////////////////////////////////////////////////////////////////////////
-// DeepLink
+// DeepLink Executor
 ///////////////////////////////////////////////////////////////////////////
 
 interface AbstractExecutor : Routing
 
-interface Command {
-    fun execute(starter: Starter)
-}
-
-class CommandRouting<T : Command>(val command: Class<T>) : AbstractExecutor
-
 interface ExecuteRouting : AbstractExecutor {
     fun execute(starter: Starter, matched: DeepLinkMatch)
+}
+
+class CommandRouting<T : DeepLinkCommand>(val command: Class<T>) : AbstractExecutor
+
+interface DeepLinkCommand {
+    fun execute(starter: Starter)
 }

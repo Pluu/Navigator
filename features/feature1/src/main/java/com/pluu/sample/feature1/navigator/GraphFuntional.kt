@@ -3,6 +3,7 @@ package com.pluu.sample.feature1.navigator
 import android.content.Intent
 import com.pluu.navigator.*
 import com.pluu.navigator.starter.Starter
+import com.pluu.navigator.util.addDeepLink
 import com.pluu.navigator.util.toArray
 import com.pluu.sample.feature1.Feature1Activity
 import com.pluu.sample.feature1.Feature1SubActivity
@@ -18,7 +19,7 @@ private val Feature1_Graph = routeGraph(
     graphName = "feature1",
     deepLinkConfig = DeepLinkConfig("feature1_graph")
 ) {
-    addRoute(Routes1.Feature1_Graph) { starter ->
+    addRoute(Routes1.Feature1Graph) { starter ->
         Intent(starter.context!!, Feature1Activity::class.java)
     }
 
@@ -44,7 +45,7 @@ private val Feature1_Graph = routeGraph(
 
 private class SampleFeature1Command_1(
     private val value: Int
-) : Command {
+) : DeepLinkCommand {
     override fun execute(starter: Starter) {
         starter.start(starter.context!!.buildIntent<Feature1Activity>("Command_1" to value))
     }
@@ -55,7 +56,7 @@ private val Feature1_GraphBuilder = RouteGraph.Builder(
     graphName = "feature1_1",
     deepLinkConfig = DeepLinkConfig("feature1_1")
 ).apply {
-    addRoute(Routes1.Feature1_Graph) { starter ->
+    addRoute(Routes1.Feature1Graph2) { starter ->
         Intent(starter.context!!, Feature1Activity::class.java)
     }
 
@@ -72,7 +73,7 @@ private val Feature1_GraphBuilder = RouteGraph.Builder(
         starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
     }
 
-    addDeepLink("luckystar://izumi/konata") { starter, _ ->
+    addDeepLink("luckystar://izumi/konata2") { starter, _ ->
         starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
     }
 
@@ -81,7 +82,7 @@ private val Feature1_GraphBuilder = RouteGraph.Builder(
 
 private class SampleFeature1Command_2(
     private val value: Int
-) : Command {
+) : DeepLinkCommand {
     override fun execute(starter: Starter) {
         starter.start(starter.context!!.buildIntent<Feature1Activity>("Command_2" to value))
     }

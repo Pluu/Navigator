@@ -4,6 +4,7 @@
 
     <application>
         <activity android:name=".Feature2Activity" />
+        <activity android:name=".Feature2SubActivity" />
     </application>
 
 </manifest>

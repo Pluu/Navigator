@@ -14,8 +14,20 @@ abstract class AbstractRoute : Destination() {
     fun register(executor: AbstractExecutor) {
         Navigator.addDestinationWithExecutor(this, executor)
     }
+
+    fun <T : DeepLinkCommand> register(deepLinkCommand: Class<T>) {
+        Navigator.addDestinationWithExecutor(this, CommandRouting(deepLinkCommand))
+    }
 }
 
 abstract class Route : AbstractRoute()
 
 abstract class RouteWithParam<T : RouteParam> : AbstractRoute()
+
+class DeepLink(
+    deepLinkPath: String
+) : AbstractRoute() {
+    init {
+        setPath(deepLinkPath)
+    }
+}

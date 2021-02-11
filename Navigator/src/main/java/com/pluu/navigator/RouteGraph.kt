@@ -4,7 +4,6 @@ import androidx.collection.ArrayMap
 import androidx.collection.SparseArrayCompat
 import androidx.collection.contains
 import androidx.collection.valueIterator
-import com.pluu.navigator.deeplink.DeepLink
 import com.pluu.navigator.deeplink.DeepLinkMatch
 import com.pluu.navigator.deeplink.DeepLinkRequest
 import com.pluu.navigator.deeplink.NavDeepLink
@@ -193,6 +192,13 @@ class RouteGraph internal constructor(
             deepLinkList[path] = executor
         }
 
+        fun <T : DeepLinkCommand> addDeepLink(
+            path: String,
+            deepLinkCommand: Class<T>
+        ) {
+            addDeepLink(path, CommandRouting(deepLinkCommand))
+        }
+
         fun addGraph(routeGraph: RouteGraph) {
             graphList.add(routeGraph)
         }
@@ -236,9 +242,3 @@ fun routeGraph(
 data class DeepLinkConfig(
     val prefixPath: String
 )
-
-inline fun <reified T : Command> RouteGraph.Builder.addDeepLink(
-    path: String
-) {
-    addDeepLink(path, CommandRouting(T::class.java))
-}

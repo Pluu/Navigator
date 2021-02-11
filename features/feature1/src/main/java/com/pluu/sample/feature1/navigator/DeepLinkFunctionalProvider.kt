@@ -1,6 +1,6 @@
 package com.pluu.sample.feature1.navigator
 
-import com.pluu.navigator.Command
+import com.pluu.navigator.DeepLinkCommand
 import com.pluu.navigator.provider.deepLinkProvider
 import com.pluu.navigator.starter.Starter
 import com.pluu.navigator.util.toArray
@@ -30,7 +30,7 @@ private val DeepLink_Command =
 
 private class SampleCommand(
     private val value: Int
-) : Command {
+) : DeepLinkCommand {
     override fun execute(starter: Starter) {
         starter.start(starter.context!!.buildIntent<Feature1Activity>("value" to value))
     }

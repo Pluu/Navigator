@@ -2,7 +2,7 @@ package com.pluu.sample.feature2.navigator;
 
 import android.content.Intent;
 
-import com.pluu.navigator.deeplink.DeepLink;
+import com.pluu.navigator.DeepLink;
 import com.pluu.navigator.provider.Provider;
 import com.pluu.sample.feature2.Feature2Activity;
 
