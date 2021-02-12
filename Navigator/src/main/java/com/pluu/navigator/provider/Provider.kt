@@ -8,10 +8,12 @@ interface Provider {
     fun provide()
 }
 
-fun navigatorProvider(
-    action: () -> Unit
-): Provider = pendingProvider {
-    action()
+inline fun pendingProvider(
+    crossinline action: () -> Unit
+): Provider = object : Provider {
+    override fun provide() {
+        action()
+    }
 }
 
 fun routeProvider(
@@ -31,12 +33,3 @@ fun deepLinkProvider(
 inline fun <reified T : DeepLinkCommand> deepLinkProvider(
     deepLink: String
 ): Provider = deepLink.deepLinkProvider<T>()
-
-@PublishedApi
-internal inline fun pendingProvider(
-    crossinline action: () -> Unit
-): Provider = object : Provider {
-    override fun provide() {
-        action()
-    }
-}
