@@ -55,7 +55,7 @@ object Routes2 {
 class SampleParam(val value: Int) : RouteParam()
 ```
 
-### Register Pattern#1 : Provider
+### Register Pattern#1 : Provider Interface
 
 ```kotlin
 import com.pluu.navigator.provider.Provider
@@ -82,20 +82,21 @@ sampleProvider.provide()
 import com.pluu.navigator.provider.routeProvider
 
 // Step1. Define Route
-val Feature1_Route_1 = routeProvider(Routes2.Feature1) { starter ->
+val sampleProvider = routeProvider(Routes2.Feature1) { starter ->
     Intent(starter.context!!, SampleActivity::class.java)
 }
 
 // Step2. Register route
-Feature1_Route_1.provide()
+sampleProvider.provide()
 ```
 
 ## Define DeepLink
 
-### Register Pattern#1 : Provider
+### Register Pattern#1 : Provider Interface
 
 ```kotlin
 // Provider Interface
+import com.pluu.navigator.DeepLink
 import com.pluu.navigator.provider.Provider
 
 // Step1. Define DeepLink
@@ -160,12 +161,48 @@ val sampleProvider: Provider = /** Provider */
 sampleProvider.provide()
 ```
 
-Command pattern
+### Register Pattern#3 : Command
 
 - Instance the `Command` object using `Gson`
 
+#### Provider Interface
+
 ```kotlin
+import com.pluu.navigator.DeepLinkCommand
+import com.pluu.navigator.DeepLink
+import com.pluu.navigator.provider.Provider
+import com.pluu.navigator.starter.Starter
+
+// Step1. Define DeepLink
+
+// Provider 
+class SampleCommandProvider : Provider {
+    override fun provide() {
+        DeepLink("pluu://feature2/command?type={type}").register(SampleCommand::class.java)
+    }
+}
+
+class SampleCommand(
+    private val type: Int
+) : DeepLinkCommand {
+    override fun execute(starter: Starter) {
+        val intent = Intent(starter.context!!, SampleActivity::class.java)
+        starter.start(intent)
+    }
+}
+
+// Step2. Register route
+val sampleProvider: Provider = /** Provider */
+sampleProvider.provide()
+```
+
+#### Futional
+
+```kotlin
+import com.pluu.navigator.DeepLinkCommand
 import com.pluu.navigator.provider.deepLinkProvider
+import com.pluu.navigator.provider.Provider
+import com.pluu.navigator.starter.Starter
 
 // Step1. Define DeepLink
 
@@ -174,7 +211,7 @@ val DeepLink_Command: Provider = deepLinkProvider<SampleCommand>("pluu://feature
 
 class SampleCommand(
     private val type: Int
-) : Command {
+) : DeepLinkCommand {
     override fun execute(starter: Starter) {
         val intent = Intent(starter.context!!, SampleActivity::class.java)
         starter.start(intent)
@@ -188,10 +225,12 @@ sampleProvider.provide()
 
 ## Define Graph
 
-### Register Pattern#1 : Provider
+### Register Pattern#1 : Builder Pattern
 
 ```kotlin
+import com.pluu.navigator.DeepLinkConfig
 import com.pluu.navigator.Navigator
+import com.pluu.navigator.RouteGraph
 
 // Step1. Define graph
 val sampleGraph: RouteGraph.Builder = RouteGraph.Builder(
@@ -218,6 +257,7 @@ Navigator.addDestinations(sampleGraph.build())
 
 ```kotlin
 import com.pluu.navigator.DeepLinkConfig
+import com.pluu.navigator.Navigator
 import com.pluu.navigator.routeGraph
 
 // Step1. Define Graph
@@ -254,5 +294,31 @@ val sampleGraph: RouteGraph = routeGraph(
 
 // Step2. Register graph
 Navigator.addDestinations(sampleGraph)
+```
+
+## Extension
+
+DeepLink#register
+
+```kotlin
+import com.pluu.navigator.util.register
+
+class DeepLinkCommandProvider : Provider {
+    override fun provide() {
+        DeepLink("/** DeepLink */").register<SampleCommand>()
+    }
+}
+```
+
+RouteGraph.Builder#addDeepLink
+
+```kotlin
+import com.pluu.navigator.util.addDeepLink
+
+val sampleGraph = routeGraph(
+    /** */
+) {
+    addDeepLink<SampleCommand>("/** DeepLink */")
+}
 ```
 
