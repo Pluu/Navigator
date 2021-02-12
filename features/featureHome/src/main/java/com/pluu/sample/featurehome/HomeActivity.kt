@@ -33,67 +33,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         initSubGraph()
     }
 
-    private fun initSubGraph() {
-        binding.container.addText("SubGraph Pattern")
-
-        binding.container.addLabel("Route")
-        binding.container.addButton("Routes1.Feature1_Graph") {
-            Navigator.of(this)
-                .start(Routes1.Feature1Graph2)
-        }
-        binding.container.addLabel("DeepLink > Default Path")
-        binding.container.addButton("pluu://feature1_1") {
-            Navigator.of(this)
-                .execute("pluu://feature1_1")
-        }
-        binding.container.addLabel("DeepLink > Relative Path")
-        binding.container.addButton("pluu://feature1_1/sample1?type=582506") {
-            Navigator.of(this)
-                .execute("pluu://feature1_1/sample1?type=582506")
-        }
-
-        binding.container.addLabel("DeepLink > Custom")
-        binding.container.addButton("luckystar://izumi/konata2") {
-            Navigator.of(this)
-                .execute("luckystar://izumi/konata2")
-        }
-    }
-
-    private fun initGraph() {
-        binding.container.addText("Graph Pattern")
-
-        binding.container.addLabel("Route")
-        binding.container.addButton("Routes1.Feature1_Graph") {
-            Navigator.of(this)
-                .start(Routes1.Feature1Graph)
-        }
-        binding.container.addLabel("DeepLink > Default Path")
-        binding.container.addButton("pluu://feature1_graph") {
-            Navigator.of(this)
-                .execute("pluu://feature1_graph")
-        }
-        binding.container.addLabel("DeepLink > Relative Path")
-        binding.container.addButton("pluu://feature1_graph/sample1?type=1834") {
-            Navigator.of(this)
-                .execute("pluu://feature1_graph/sample1?type=1834")
-        }
-        binding.container.addLabel("DeepLink > Sub Path")
-        binding.container.addButton("pluu://feature1_graph/sub") {
-            Navigator.of(this)
-                .execute("pluu://feature1_graph/sub")
-        }
-        binding.container.addLabel("DeepLink > Command")
-        binding.container.addButton("pluu://feature1_graph/sample2?type=13579") {
-            Navigator.of(this)
-                .execute("pluu://feature1_graph/sample2?type=13579")
-        }
-        binding.container.addLabel("DeepLink > Custom")
-        binding.container.addButton("luckystar://izumi/konata") {
-            Navigator.of(this)
-                .execute("luckystar://izumi/konata")
-        }
-    }
-
     private fun initProviderSample() {
         binding.container.addText("Provider Pattern")
 
@@ -136,6 +75,67 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         binding.container.addButton("pluu://feature2/command/extension?type=abcd") {
             Navigator.of(this)
                 .execute("pluu://feature2/command/extension?type=abcd")
+        }
+    }
+
+    private fun initGraph() {
+        binding.container.addText("Graph Pattern")
+
+        binding.container.addLabel("Route")
+        binding.container.addButton("Routes1.Feature1_Graph") {
+            Navigator.of(this)
+                .start(Routes1.Feature1Graph)
+        }
+        binding.container.addLabel("DeepLink > Default Path")
+        binding.container.addButton("pluu://feature1_graph") {
+            Navigator.of(this)
+                .execute("pluu://feature1_graph")
+        }
+        binding.container.addLabel("DeepLink > Relative Path")
+        binding.container.addButton("pluu://feature1_graph/sample1?type=1834") {
+            Navigator.of(this)
+                .execute("pluu://feature1_graph/sample1?type=1834")
+        }
+        binding.container.addLabel("DeepLink > Sub Path")
+        binding.container.addButton("pluu://feature1_graph/sub") {
+            Navigator.of(this)
+                .execute("pluu://feature1_graph/sub")
+        }
+        binding.container.addLabel("DeepLink > Command")
+        binding.container.addButton("pluu://feature1_graph/sample2?type=13579") {
+            Navigator.of(this)
+                .execute("pluu://feature1_graph/sample2?type=13579")
+        }
+        binding.container.addLabel("DeepLink > Custom")
+        binding.container.addButton("luckystar://izumi/konata") {
+            Navigator.of(this)
+                .execute("luckystar://izumi/konata")
+        }
+    }
+
+    private fun initSubGraph() {
+        binding.container.addText("SubGraph Pattern")
+
+        binding.container.addLabel("Route")
+        binding.container.addButton("Routes1.Feature1_Graph") {
+            Navigator.of(this)
+                .start(Routes1.Feature1Graph2)
+        }
+        binding.container.addLabel("DeepLink > Default Path")
+        binding.container.addButton("pluu://feature1_1") {
+            Navigator.of(this)
+                .execute("pluu://feature1_1")
+        }
+        binding.container.addLabel("DeepLink > Relative Path")
+        binding.container.addButton("pluu://feature1_1/sample1?type=582506") {
+            Navigator.of(this)
+                .execute("pluu://feature1_1/sample1?type=582506")
+        }
+
+        binding.container.addLabel("DeepLink > Custom")
+        binding.container.addButton("luckystar://izumi/konata2") {
+            Navigator.of(this)
+                .execute("luckystar://izumi/konata2")
         }
     }
 

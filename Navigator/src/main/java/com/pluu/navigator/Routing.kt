@@ -1,11 +1,11 @@
 package com.pluu.navigator
 
 import android.content.Intent
-import com.pluu.navigator.deeplink.DeepLinkMatch
+import com.pluu.navigator.deeplink.DeepLinkMatchResult
 import com.pluu.navigator.starter.Starter
 
 typealias INTENT_CREATOR = (Starter) -> Intent
-typealias LINK_EXECUTOR = (Starter, DeepLinkMatch) -> Unit
+typealias LINK_EXECUTOR = (Starter, DeepLinkMatchResult) -> Unit
 
 ///////////////////////////////////////////////////////////////////////////
 // Route Creator
@@ -30,7 +30,7 @@ internal class CreateRoutingImpl(
 interface AbstractExecutor : Routing
 
 interface ExecuteRouting : AbstractExecutor {
-    fun execute(starter: Starter, matched: DeepLinkMatch)
+    fun execute(starter: Starter, matched: DeepLinkMatchResult)
 }
 
 class CommandRouting<T : DeepLinkCommand>(val command: Class<T>) : AbstractExecutor

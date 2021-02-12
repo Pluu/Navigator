@@ -1,7 +1,10 @@
 package com.pluu.sample.feature1.navigator
 
 import android.content.Intent
-import com.pluu.navigator.*
+import com.pluu.navigator.DeepLinkCommand
+import com.pluu.navigator.DeepLinkConfig
+import com.pluu.navigator.RouteGraph
+import com.pluu.navigator.routeGraph
 import com.pluu.navigator.starter.Starter
 import com.pluu.navigator.util.addDeepLink
 import com.pluu.navigator.util.toArray

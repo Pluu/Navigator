@@ -1,7 +1,7 @@
 package com.pluu.navigator
 
 import com.google.gson.Gson
-import com.pluu.navigator.deeplink.DeepLinkMatch
+import com.pluu.navigator.deeplink.DeepLinkMatchResult
 import com.pluu.navigator.starter.Starter
 import org.json.JSONObject
 
@@ -11,15 +11,15 @@ class DeepLinkExecutor {
     fun execute(
         executor: AbstractExecutor,
         starter: Starter,
-        deepLinkMatch: DeepLinkMatch
+        deepLinkMatchResult: DeepLinkMatchResult
     ): Boolean = when (executor) {
         is ExecuteRouting -> {
-            executor.execute(starter, deepLinkMatch)
+            executor.execute(starter, deepLinkMatchResult)
             true
         }
         is CommandRouting<*> -> {
             val json = JSONObject()
-            for ((key, value) in deepLinkMatch.args) {
+            for ((key, value) in deepLinkMatchResult.args) {
                 json.put(key, value)
             }
             val command = gson.fromJson(json.toString(), executor.command)

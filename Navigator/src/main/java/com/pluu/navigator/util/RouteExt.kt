@@ -1,18 +1,19 @@
 package com.pluu.navigator.util
 
 import com.pluu.navigator.*
-import com.pluu.navigator.deeplink.DeepLinkMatch
+import com.pluu.navigator.deeplink.DeepLinkMatchResult
 import com.pluu.navigator.provider.Provider
 import com.pluu.navigator.provider.pendingProvider
 import com.pluu.navigator.starter.Starter
 
-fun LINK_EXECUTOR.toRouting(): AbstractExecutor = object : ExecuteRouting {
-    override fun execute(starter: Starter, matched: DeepLinkMatch) {
+internal fun LINK_EXECUTOR.toRouting(): AbstractExecutor = object : ExecuteRouting {
+    override fun execute(starter: Starter, matched: DeepLinkMatchResult) {
         invoke(starter, matched)
     }
 }
 
-inline fun <reified T : DeepLinkCommand> String.deepLinkProvider(): Provider = pendingProvider {
+@PublishedApi
+internal inline fun <reified T : DeepLinkCommand> String.deepLinkProvider(): Provider = pendingProvider {
     DeepLink(this).register(T::class.java)
 }
 

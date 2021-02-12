@@ -4,7 +4,7 @@ import androidx.collection.ArrayMap
 import androidx.collection.SparseArrayCompat
 import androidx.collection.contains
 import androidx.collection.valueIterator
-import com.pluu.navigator.deeplink.DeepLinkMatch
+import com.pluu.navigator.deeplink.DeepLinkMatchResult
 import com.pluu.navigator.deeplink.DeepLinkRequest
 import com.pluu.navigator.deeplink.NavDeepLink
 import com.pluu.navigator.util.hasScheme
@@ -133,17 +133,16 @@ class RouteGraph internal constructor(
     // DeepLink
     ///////////////////////////////////////////////////////////////////////////
 
-    fun matchDeepLink(request: DeepLinkRequest): DeepLinkMatch? {
+    fun matchDeepLink(request: DeepLinkRequest): DeepLinkMatchResult? {
         val uri = request.uri.toString().trimUriSeparator()
         for (deepLink in deepLinks.valueIterator()) {
             if (deepLink.match(uri)) {
                 val destination = findDestination(deepLink.uri)
                 return if (destination != null) {
-                    DeepLinkMatch(
+                    DeepLinkMatchResult(
                         request = request,
                         destination = destination,
-                        args = deepLink.matchingArguments(uri).orEmpty(),
-                        isExactDeepLink = deepLink.isExactDeepLink()
+                        args = deepLink.matchingArguments(uri).orEmpty()
                     )
                 } else {
                     logger.w("no destination found for deeplink('$uri')")
