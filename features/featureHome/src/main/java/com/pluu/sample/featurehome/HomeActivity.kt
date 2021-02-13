@@ -31,6 +31,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         initGraph()
         binding.container.addDivider()
         initSubGraph()
+        binding.container.addDivider()
+        initJava()
     }
 
     private fun initProviderSample() {
@@ -42,12 +44,10 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
                 .startForResult(Routes1.Feature1, sampleRequestCode)
         }
         binding.container.addLabel("Route with Parameter")
-        binding.container.addButton("Routes2.Feature2 with SampleParam") {
+        binding.container.addButton("Routes2.Feature2 with SampleParam(123_456_789)") {
             Navigator.of(this).start(
                 route = Routes2.Feature2,
-                param = SampleParam(
-                    (0..100_000_000).random()
-                )
+                param = SampleParam(123_456_789)
             )
         }
 
@@ -139,6 +139,19 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         }
     }
 
+    private fun initJava() {
+        binding.container.addText("Java Pattern")
+
+        binding.container.addLabel("Route")
+        binding.container.addButton("Routes2.Feature2ForJava with SampleParam(987_654_321)") {
+            Navigator.of(this)
+                .start(
+                    route = Routes2.Feature2ForJava,
+                    param = SampleParam(987_654_321)
+                )
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == sampleRequestCode) {
@@ -146,6 +159,10 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         }
     }
 }
+
+///////////////////////////////////////////////////////////////////////////
+// Simple View
+///////////////////////////////////////////////////////////////////////////
 
 private fun LinearLayout.addTitle(text: String) {
     val view = TextView(context).apply {
@@ -167,7 +184,7 @@ private fun LinearLayout.addText(text: String) {
     val view = TextView(context).apply {
         setText(text)
         textSize = 20f
-        setTextColor(0xFF993300.toInt())
+        setTextColor(0xFFE71D36.toInt())
         setTypeface(null, Typeface.BOLD)
     }
     addView(view)
