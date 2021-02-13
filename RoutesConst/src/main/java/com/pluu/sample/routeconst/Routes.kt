@@ -20,5 +20,10 @@ object Routes2 {
 }
 
 class SampleParam(
-    val value: Int
-) : RouteParam()
+    val value: Int,
+    val value2: String? = null
+) : RouteParam() {
+    override fun toString(): String {
+        return "SampleParam(value=$value, value2=$value2)"
+    }
+}
