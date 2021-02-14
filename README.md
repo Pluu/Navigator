@@ -92,6 +92,14 @@ sampleProvider.provide()
 
 ## Define DeepLink
 
+The parameter value of deep link is created as follows.
+
+- Query parameter placeholders in the form of `{placeholder_name}` match one or more characters
+  - For example, http://www.example.com/search/id={id} matches http://www.example.com/search/id=4
+- The delivered deep link delivers parameter value with each `{placeholder name}` as key
+  - For example, http://www.example.com/search/arg1={arg_1}&arg2={arg_2} matches http://www.example.com/search/arg1=sample1=arg2=sample2
+  - It is finally constructed in this map. arg_1 = sample1, arg_2 = sample2
+
 ### Register Pattern#1 : Provider Interface
 
 ```kotlin
