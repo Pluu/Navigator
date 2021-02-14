@@ -8,7 +8,7 @@ import com.pluu.sample.routeconst.Routes1
 private class RouteProvider : Provider {
     override fun provide() {
         Routes1.Feature1.register { starter ->
-            Intent(starter.context!!, Feature1Activity::class.java)
+            Intent(starter.context, Feature1Activity::class.java)
         }
     }
 }

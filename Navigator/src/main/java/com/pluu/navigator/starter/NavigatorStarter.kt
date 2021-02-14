@@ -73,7 +73,11 @@ class NavigatorStarter(
         if (!hasDestination) {
             throw MissingRouteThrowable(routeName = destination.toString())
         }
-        starter.context ?: return
+
+        if (!starter.validStarter()) {
+            logger.w("Current not valid to a starter")
+            return
+        }
 
         val routing = graph.getRequiredRouting(destination) as? CreateRouting ?: return
         logger.d("matched route ${destination.path}")

@@ -20,24 +20,24 @@ private val Feature1_Graph = routeGraph(
     deepLinkConfig = DeepLinkConfig("feature1_graph")
 ) {
     addDestination(Routes1.Feature1Graph) { starter ->
-        Intent(starter.context!!, Feature1Activity::class.java)
+        Intent(starter.context, Feature1Activity::class.java)
     }
 
     addDeepLink("/") { starter, _ ->
-        starter.start(starter.context!!.buildIntent<Feature1Activity>())
+        starter.start(starter.context.buildIntent<Feature1Activity>())
     }
 
     addDeepLink("/sample1?type={type}") { starter, deepLinkMatch ->
         val args = deepLinkMatch.args.toArray()
-        starter.start(starter.context!!.buildIntent<Feature1Activity>(*args))
+        starter.start(starter.context.buildIntent<Feature1Activity>(*args))
     }
 
     addDeepLink("sub") { starter, _ ->
-        starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
+        starter.start(starter.context.buildIntent<Feature1SubActivity>())
     }
 
     addDeepLink("luckystar://izumi/konata") { starter, _ ->
-        starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
+        starter.start(starter.context.buildIntent<Feature1SubActivity>())
     }
 
     addDeepLink<SampleFeature1Command_1>("sample2?type={value}")
@@ -47,7 +47,7 @@ private class SampleFeature1Command_1(
     private val value: Int
 ) : DeepLinkCommand {
     override fun execute(starter: Starter) {
-        starter.start(starter.context!!.buildIntent<Feature1Activity>("Command_1" to value))
+        starter.start(starter.context.buildIntent<Feature1Activity>("Command_1" to value))
     }
 }
 
@@ -57,24 +57,24 @@ private val Feature1_GraphBuilder = RouteGraph.Builder(
     deepLinkConfig = DeepLinkConfig("feature1_1")
 ).apply {
     addDestination(Routes1.Feature1Graph2) { starter ->
-        Intent(starter.context!!, Feature1Activity::class.java)
+        Intent(starter.context, Feature1Activity::class.java)
     }
 
     addDeepLink("/") { starter, _ ->
-        starter.start(starter.context!!.buildIntent<Feature1Activity>())
+        starter.start(starter.context.buildIntent<Feature1Activity>())
     }
 
     addDeepLink("/sample1?type={type}") { starter, deepLinkMatch ->
         val args = deepLinkMatch.args.toArray()
-        starter.start(starter.context!!.buildIntent<Feature1Activity>(*args))
+        starter.start(starter.context.buildIntent<Feature1Activity>(*args))
     }
 
     addDeepLink("sub") { starter, _ ->
-        starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
+        starter.start(starter.context.buildIntent<Feature1SubActivity>())
     }
 
     addDeepLink("luckystar://izumi/konata2") { starter, _ ->
-        starter.start(starter.context!!.buildIntent<Feature1SubActivity>())
+        starter.start(starter.context.buildIntent<Feature1SubActivity>())
     }
 
     addDeepLink<SampleFeature1Command_2>("pluu://feature_1_1/sample2?type={value}")
@@ -84,7 +84,7 @@ private class SampleFeature1Command_2(
     private val value: Int
 ) : DeepLinkCommand {
     override fun execute(starter: Starter) {
-        starter.start(starter.context!!.buildIntent<Feature1Activity>("Command_2" to value))
+        starter.start(starter.context.buildIntent<Feature1Activity>("Command_2" to value))
     }
 }
 

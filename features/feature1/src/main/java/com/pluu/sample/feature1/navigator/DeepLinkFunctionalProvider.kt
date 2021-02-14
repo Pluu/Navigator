@@ -14,14 +14,14 @@ import com.pluu.utils.buildIntent
 // Provider
 private val DeepLink_Simple =
     deepLinkProvider("pluu://feature1") { starter, _ ->
-        starter.start(starter.context!!.buildIntent<Feature1Activity>())
+        starter.start(starter.context.buildIntent<Feature1Activity>())
     }
 
 // Provider (Relative Path)
 private val DeepLink_Relative_Path =
     deepLinkProvider("feature1/sample1?type={type}") { starter, deepLinkMatch ->
         val args = deepLinkMatch.args.toArray()
-        starter.start(starter.context!!.buildIntent<Feature1Activity>(*args))
+        starter.start(starter.context.buildIntent<Feature1Activity>(*args))
     }
 
 // Provider (Command)
@@ -32,7 +32,7 @@ private class SampleCommand(
     private val value: Int
 ) : DeepLinkCommand {
     override fun execute(starter: Starter) {
-        starter.start(starter.context!!.buildIntent<Feature1Activity>("value" to value))
+        starter.start(starter.context.buildIntent<Feature1Activity>("value" to value))
     }
 }
 

@@ -6,11 +6,13 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 
 interface Starter {
-    val context: Context?
+    val context: Context
 
     fun start(intent: Intent)
 
     fun startForResult(intent: Intent, requestCode: Int)
+
+    fun validStarter(): Boolean
 }
 
 internal class ActivityStarter(private val activity: Activity) : Starter {
@@ -26,10 +28,13 @@ internal class ActivityStarter(private val activity: Activity) : Starter {
     ) {
         activity.startActivityForResult(intent, requestCode)
     }
+
+    override fun validStarter() = activity.isFinishing.not()
 }
 
 internal class FragmentStarter(private val fragment: Fragment) : Starter {
-    override val context = fragment.context
+    override val context: Context
+        get() = fragment.requireContext()
 
     override fun start(intent: Intent) {
         fragment.startActivity(intent)
@@ -40,5 +45,9 @@ internal class FragmentStarter(private val fragment: Fragment) : Starter {
         requestCode: Int
     ) {
         fragment.startActivityForResult(intent, requestCode)
+    }
+
+    override fun validStarter(): Boolean {
+        return fragment.context != null
     }
 }

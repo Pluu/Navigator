@@ -7,6 +7,6 @@ import com.pluu.sample.routeconst.Home
 
 val Home_Route_Provider = pendingProvider {
     Home.Default.register { starter ->
-        Intent(starter.context!!, HomeActivity::class.java)
+        Intent(starter.context, HomeActivity::class.java)
     }
 }

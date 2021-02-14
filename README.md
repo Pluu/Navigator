@@ -64,7 +64,7 @@ import com.pluu.navigator.provider.Provider
 class SampleProvider : Provider {
     override fun provide() {
         Routes1.Feature1.register { starter ->
-            Intent(starter.context!!, SampleActivity::class.java)
+            Intent(starter.context, SampleActivity::class.java)
         }
         // more ...
     }
@@ -83,7 +83,7 @@ import com.pluu.navigator.provider.routeProvider
 
 // Step1. Define Route
 val sampleProvider = routeProvider(Routes2.Feature1) { starter ->
-    Intent(starter.context!!, SampleActivity::class.java)
+    Intent(starter.context, SampleActivity::class.java)
 }
 
 // Step2. Register route
@@ -104,7 +104,7 @@ class SampleProvider : Provider {
     override fun provide() {
         // Simple
         DeepLink("pluu://feature1").register { starter, deepLinkMatch ->
-            val intent = Intent(starter.context!!, SampleActivity::class.java)
+            val intent = Intent(starter.context, SampleActivity::class.java)
             starter.start(intent)
         }
       
@@ -117,7 +117,7 @@ class SampleProvider : Provider {
             // +------+-------+
             // | type | 123   |
             // +------+-------+                                                       
-            val intent = Intent(starter.context!!, SampleActivity::class.java)
+            val intent = Intent(starter.context, SampleActivity::class.java)
             starter.start(intent)
         }
     }
@@ -139,7 +139,7 @@ import com.pluu.navigator.provider.deepLinkProvider
 
 // Provider
 val DeepLink_Simple: Provider = deepLinkProvider("pluu://feature1") { starter, deepLinkMatch ->
-    val intent = Intent(starter.context!!, SampleActivity::class.java)
+    val intent = Intent(starter.context, SampleActivity::class.java)
     starter.start(intent)
 }
 
@@ -152,7 +152,7 @@ val DeepLink_Relative_Path: Provider = deepLinkProvider("feature1/sample1?type={
     // +------+-------+
     // | type | 123   |
     // +------+-------+
-    val intent = Intent(starter.context!!, SampleActivity::class.java)
+    val intent = Intent(starter.context, SampleActivity::class.java)
     starter.start(intent)
 }
 
@@ -186,7 +186,7 @@ class SampleCommand(
     private val type: Int
 ) : DeepLinkCommand {
     override fun execute(starter: Starter) {
-        val intent = Intent(starter.context!!, SampleActivity::class.java)
+        val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
 }
@@ -213,7 +213,7 @@ class SampleCommand(
     private val type: Int
 ) : DeepLinkCommand {
     override fun execute(starter: Starter) {
-        val intent = Intent(starter.context!!, SampleActivity::class.java)
+        val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
 }
@@ -239,12 +239,12 @@ val sampleGraph: RouteGraph.Builder = RouteGraph.Builder(
 ).apply {   
     // Add Route
     addDestination(/** */) { starter ->
-        Intent(starter.context!!, SampleActivity::class.java)
+        Intent(starter.context, SampleActivity::class.java)
     }
   
     // Add DeepLink
     addDeepLink(/** */) { starter, deepLinkMatch -> 
-        val intent = Intent(starter.context!!, SampleActivity::class.java)
+        val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
 }
@@ -266,13 +266,13 @@ val sampleGraph: RouteGraph = routeGraph(
     deepLinkConfig = DeepLinkConfig("feature1") // prefix path
 ) {
     addDestination(Routes1.Feature1_Graph) { starter ->
-        Intent(starter.context!!, SampleActivity::class.java)
+        Intent(starter.context, SampleActivity::class.java)
     }
 
     // URL : pluu://feature1 
     // Base Scheme + DeepLink-config Prefix Path + Path
     addDeepLink("/") { starter, deepLinkMatch -> 
-        val intent = Intent(starter.context!!, SampleActivity::class.java)
+        val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
         // Feature1::aaa
         // arg -> gson or 
@@ -281,13 +281,13 @@ val sampleGraph: RouteGraph = routeGraph(
     // URL : pluu://feature1/1
     // Base Scheme + DeepLink-config Prefix Path + Path
     addDeepLink("1") { starter, deepLinkMatch ->
-        val intent = Intent(starter.context!!, SampleActivity::class.java)
+        val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
 
     // URL : luckystar://izumi/konata
     addDeepLink("luckystar://izumi/konata") { starter, deepLinkMatch -> 
-        val intent = Intent(starter.context!!, SampleActivity::class.java)
+        val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
 }
@@ -316,7 +316,7 @@ RouteGraph.Builder#addDeepLink
 import com.pluu.navigator.util.addDeepLink
 
 val sampleGraph = routeGraph(
-    /** */
+    /** define graph */
 ) {
     addDeepLink<SampleCommand>("/** DeepLink */")
 }

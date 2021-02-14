@@ -8,5 +8,5 @@ import com.pluu.utils.buildIntent
 internal val Feature1_Route_1 = routeProvider(
     Routes2.Feature2
 ) { starter ->
-    starter.context!!.buildIntent<Feature2Activity>()
+    starter.context.buildIntent<Feature2Activity>()
 }

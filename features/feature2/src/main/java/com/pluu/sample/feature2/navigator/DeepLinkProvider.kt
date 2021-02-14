@@ -15,7 +15,7 @@ internal class DeepLinkProvider : Provider {
     override fun provide() {
         DeepLink("pluu://feature2").register { starter, _ ->
             starter.start(
-                starter.context!!.buildIntent<Feature2Activity>(
+                starter.context.buildIntent<Feature2Activity>(
                     ROUTE_PARAMS_KEY to SampleParam(100)
                 )
             )
@@ -39,6 +39,6 @@ class Feature2SampleCommand(
     private val type: String
 ) : DeepLinkCommand {
     override fun execute(starter: Starter) {
-        starter.start(starter.context!!.buildIntent<Feature2SubActivity>("type" to type))
+        starter.start(starter.context.buildIntent<Feature2SubActivity>("type" to type))
     }
 }
