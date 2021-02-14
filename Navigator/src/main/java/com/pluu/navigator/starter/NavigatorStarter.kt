@@ -15,48 +15,48 @@ class NavigatorStarter(
     // Navigation
     ///////////////////////////////////////////////////////////////////////////
 
-    fun <T : Route> start(
-        route: T,
+    fun <T : Direction> start(
+        direction: T,
         navOption: NavOptions? = null,
     ) {
         startInternal(
-            destination = route,
+            destination = direction,
             navOption = navOption
         )
     }
 
-    fun <P : RouteParam, T : RouteWithParam<P>> start(
-        route: T,
+    fun <P : DirectionParam, T : DirectionWithParam<P>> start(
+        direction: T,
         param: P,
         navOption: NavOptions? = null,
     ) {
         startInternal(
-            destination = route,
+            destination = direction,
             param = param,
             navOption = navOption
         )
     }
 
     fun startForResult(
-        route: Route,
+        direction: Direction,
         requestCode: Int,
         navOption: NavOptions? = null
     ) {
         startInternal(
-            destination = route,
+            destination = direction,
             requestCode = requestCode,
             navOption = navOption
         )
     }
 
-    fun <P : RouteParam, T : RouteWithParam<P>> startForResult(
-        route: Route,
+    fun <P : DirectionParam, T : DirectionWithParam<P>> startForResult(
+        direction: Direction,
         requestCode: Int,
         param: P,
         navOption: NavOptions? = null
     ) {
         startInternal(
-            destination = route,
+            destination = direction,
             requestCode = requestCode,
             param = param,
             navOption = navOption
@@ -66,11 +66,11 @@ class NavigatorStarter(
     private fun startInternal(
         destination: Destination,
         requestCode: Int? = null,
-        param: RouteParam? = null,
+        param: DirectionParam? = null,
         navOption: NavOptions?
     ) {
-        val containRoute = graph.containsRoute(destination)
-        if (!containRoute) {
+        val hasDestination = graph.containsDestination(destination)
+        if (!hasDestination) {
             throw MissingRouteThrowable(routeName = destination.toString())
         }
         starter.context ?: return

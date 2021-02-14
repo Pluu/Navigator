@@ -4,22 +4,22 @@ import android.content.Intent
 import com.pluu.navigator.deeplink.DeepLinkMatchResult
 import com.pluu.navigator.starter.Starter
 
-typealias INTENT_CREATOR = (starter: Starter) -> Intent
+typealias CREATOR_ACTION = (starter: Starter) -> Intent
 
-typealias LINK_EXECUTOR = (starter: Starter, result: DeepLinkMatchResult) -> Unit
+typealias EXECUTOR_ACTION = (starter: Starter, result: DeepLinkMatchResult) -> Unit
+
+interface Routing
 
 ///////////////////////////////////////////////////////////////////////////
 // Route Creator
 ///////////////////////////////////////////////////////////////////////////
-
-interface Routing
 
 interface CreateRouting : Routing {
     fun create(starter: Starter): Intent
 }
 
 internal class CreateRoutingImpl(
-    private val creator: INTENT_CREATOR
+    private val creator: CREATOR_ACTION
 ) : CreateRouting {
     override fun create(starter: Starter) = creator(starter)
 }

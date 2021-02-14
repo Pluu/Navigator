@@ -13,24 +13,24 @@ object Navigator {
     private val deepLinkExecutor = DeepLinkExecutor()
 
     internal fun addDestination(
-        route: Destination,
-        creator: INTENT_CREATOR
+        destination: Destination,
+        creator: CREATOR_ACTION
     ) {
-       coreGraph.addRoute(route, creator)
+       coreGraph.addDestination(destination, creator)
     }
 
     internal fun addDestination(
-        route: Destination,
-        executor: LINK_EXECUTOR
+        destination: Destination,
+        executor: EXECUTOR_ACTION
     ) {
-        addDestinationWithExecutor(route, executor.toRouting())
+        addDestinationWithExecutor(destination, executor.toRouting())
     }
 
     internal fun addDestinationWithExecutor(
-        route: Destination,
+        destination: Destination,
         executor: AbstractExecutor
     ) {
-        coreGraph.addDeepLink(route, executor)
+        coreGraph.addDeepLink(destination, executor)
     }
 
     fun addDestinations(graph: RouteGraph) {

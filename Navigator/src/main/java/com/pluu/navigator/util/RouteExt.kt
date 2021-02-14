@@ -6,7 +6,7 @@ import com.pluu.navigator.provider.Provider
 import com.pluu.navigator.provider.pendingProvider
 import com.pluu.navigator.starter.Starter
 
-internal fun LINK_EXECUTOR.toRouting(): AbstractExecutor = object : ExecuteRouting {
+internal fun EXECUTOR_ACTION.toRouting(): AbstractExecutor = object : ExecuteRouting {
     override fun execute(starter: Starter, matched: DeepLinkMatchResult) {
         invoke(starter, matched)
     }

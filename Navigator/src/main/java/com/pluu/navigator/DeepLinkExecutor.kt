@@ -6,7 +6,7 @@ import com.pluu.navigator.starter.Starter
 import org.json.JSONObject
 
 class DeepLinkExecutor {
-    private val gson = Gson()
+    private val gson by lazy { Gson() }
 
     fun execute(
         executor: AbstractExecutor,

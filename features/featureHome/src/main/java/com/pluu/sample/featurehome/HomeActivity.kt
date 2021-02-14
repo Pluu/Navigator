@@ -46,7 +46,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         binding.container.addLabel("Route with Parameter")
         binding.container.addButton("Routes2.Feature2 with SampleParam(123_456_789)") {
             Navigator.of(this).start(
-                route = Routes2.Feature2,
+                direction = Routes2.Feature2,
                 param = SampleParam(123_456_789)
             )
         }
@@ -146,7 +146,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         binding.container.addButton("Routes2.Feature2ForJava with SampleParam(987_654_321)") {
             Navigator.of(this)
                 .start(
-                    route = Routes2.Feature2ForJava,
+                    direction = Routes2.Feature2ForJava,
                     param = SampleParam(987_654_321)
                 )
         }

@@ -18,14 +18,14 @@ inline fun pendingProvider(
 
 fun routeProvider(
     targetRoute: AbstractRoute,
-    creator: INTENT_CREATOR
+    creator: CREATOR_ACTION
 ): Provider = pendingProvider {
     targetRoute.register(creator)
 }
 
 fun deepLinkProvider(
     deepLink: String,
-    executor: LINK_EXECUTOR
+    executor: EXECUTOR_ACTION
 ): Provider = pendingProvider {
     DeepLink(deepLink).register(executor.toRouting())
 }

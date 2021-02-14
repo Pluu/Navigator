@@ -1,28 +1,28 @@
 package com.pluu.sample.routeconst
 
-import com.pluu.navigator.Route
-import com.pluu.navigator.RouteParam
-import com.pluu.navigator.RouteWithParam
+import com.pluu.navigator.Direction
+import com.pluu.navigator.DirectionParam
+import com.pluu.navigator.DirectionWithParam
 
 object Home {
-    object Default : Route()
+    object Default : Direction()
 }
 
 object Routes1 {
-    object Feature1 : Route()
-    object Feature1Graph : Route()
-    object Feature1Graph2 : Route()
+    object Feature1 : Direction()
+    object Feature1Graph : Direction()
+    object Feature1Graph2 : Direction()
 }
 
 object Routes2 {
-    object Feature2 : RouteWithParam<SampleParam>()
-    object Feature2ForJava : RouteWithParam<SampleParam>()
+    object Feature2 : DirectionWithParam<SampleParam>()
+    object Feature2ForJava : DirectionWithParam<SampleParam>()
 }
 
 class SampleParam(
     val value: Int,
     val value2: String? = null
-) : RouteParam() {
+) : DirectionParam() {
     override fun toString(): String {
         return "SampleParam(value=$value, value2=$value2)"
     }

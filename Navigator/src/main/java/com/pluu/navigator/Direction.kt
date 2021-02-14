@@ -1,13 +1,13 @@
 package com.pluu.navigator
 
-const val ROUTE_PARAMS_KEY = "ROUTE_PARAMS_KEY"
+import java.io.Serializable
 
 abstract class AbstractRoute : Destination() {
-    fun register(creator: INTENT_CREATOR) {
+    fun register(creator: CREATOR_ACTION) {
         Navigator.addDestination(this, creator)
     }
 
-    fun register(executor: LINK_EXECUTOR) {
+    fun register(executor: EXECUTOR_ACTION) {
         Navigator.addDestination(this, executor)
     }
 
@@ -20,9 +20,11 @@ abstract class AbstractRoute : Destination() {
     }
 }
 
-abstract class Route : AbstractRoute()
+abstract class Direction : AbstractRoute()
 
-abstract class RouteWithParam<T : RouteParam> : AbstractRoute()
+abstract class DirectionParam : Serializable
+
+abstract class DirectionWithParam<T : DirectionParam> : AbstractRoute()
 
 class DeepLink(
     deepLinkPath: String

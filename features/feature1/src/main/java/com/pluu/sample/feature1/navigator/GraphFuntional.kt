@@ -19,7 +19,7 @@ private val Feature1_Graph = routeGraph(
     graphName = "feature1",
     deepLinkConfig = DeepLinkConfig("feature1_graph")
 ) {
-    addRoute(Routes1.Feature1Graph) { starter ->
+    addDestination(Routes1.Feature1Graph) { starter ->
         Intent(starter.context!!, Feature1Activity::class.java)
     }
 
@@ -56,7 +56,7 @@ private val Feature1_GraphBuilder = RouteGraph.Builder(
     graphName = "feature1_1",
     deepLinkConfig = DeepLinkConfig("feature1_1")
 ).apply {
-    addRoute(Routes1.Feature1Graph2) { starter ->
+    addDestination(Routes1.Feature1Graph2) { starter ->
         Intent(starter.context!!, Feature1Activity::class.java)
     }
 

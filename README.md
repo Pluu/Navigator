@@ -40,19 +40,19 @@ Navigator.registerConfig(config)
 Define navigation routes
 
 ```kotlin
-import com.pluu.navigator.Route
-import com.pluu.navigator.RouteParam
-import com.pluu.navigator.RouteWithParam
+import com.pluu.navigator.Direction
+import com.pluu.navigator.DirectionParam
+import com.pluu.navigator.DirectionWithParam
 
 object Routes1 {
-    object Feature1 : Route()
+    object Feature1 : Direction()
 }
 
 object Routes2 {
-    object Feature2 : RouteWithParam<SampleParam>()
+    object Feature2 : DirectionWithParam<SampleParam>()
 }
 
-class SampleParam(val value: Int) : RouteParam()
+class SampleParam(val value: Int) : DirectionParam()
 ```
 
 ### Register Pattern#1 : Provider Interface
@@ -238,7 +238,7 @@ val sampleGraph: RouteGraph.Builder = RouteGraph.Builder(
     deepLinkConfig = DeepLinkConfig("feature1")
 ).apply {   
     // Add Route
-    addRoute(/** */) { starter ->
+    addDestination(/** */) { starter ->
         Intent(starter.context!!, SampleActivity::class.java)
     }
   
@@ -265,7 +265,7 @@ val sampleGraph: RouteGraph = routeGraph(
     graphName = "sample",
     deepLinkConfig = DeepLinkConfig("feature1") // prefix path
 ) {
-    addRoute(Routes1.Feature1_Graph) { starter ->
+    addDestination(Routes1.Feature1_Graph) { starter ->
         Intent(starter.context!!, SampleActivity::class.java)
     }
 

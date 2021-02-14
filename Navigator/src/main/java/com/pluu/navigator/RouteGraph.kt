@@ -22,16 +22,16 @@ class RouteGraph internal constructor(
     // Add Destination
     ///////////////////////////////////////////////////////////////////////////
 
-    fun addRoute(
+    fun addDestination(
         destination: Destination,
-        creator: INTENT_CREATOR
-    ) = addRoute(destination, CreateRoutingImpl(creator))
+        creator: CREATOR_ACTION
+    ) = addDestination(destination, CreateRoutingImpl(creator))
 
     fun addDeepLink(
         destination: Destination,
         executor: AbstractExecutor
     ): Routing? {
-        if (containsRoute(destination)) {
+        if (containsDestination(destination)) {
             logger.w("[$name] DeepLink ${destination.path}(${destination.hashCode()}) is already registered ")
             return null
         }
@@ -45,14 +45,14 @@ class RouteGraph internal constructor(
         }
 
         addDeepLink(NavDeepLink(path))
-        return addRoute(completedDestination, executor)
+        return addDestination(completedDestination, executor)
     }
 
-    internal fun addRoute(
+    internal fun addDestination(
         destination: Destination,
         routing: Routing
     ): Routing? {
-        if (containsRoute(destination)) {
+        if (containsDestination(destination)) {
             logger.w("[$name] Route ('${destination.path}') is already registered ")
             return null
         }
@@ -80,7 +80,7 @@ class RouteGraph internal constructor(
         while (routeIterator.hasNext()) {
             val (destination, routing) = routeIterator.next()
             routeIterator.remove()
-            addRoute(destination, routing)
+            addDestination(destination, routing)
         }
 
         // Add, Deep Link
@@ -121,7 +121,7 @@ class RouteGraph internal constructor(
 
     private fun deepLinkIterator() = deepLinks.toIteratorWithRemove()
 
-    fun containsRoute(destination: Destination): Boolean {
+    fun containsDestination(destination: Destination): Boolean {
         return routingNodes.contains(destination)
     }
 
@@ -166,20 +166,20 @@ class RouteGraph internal constructor(
         private val graphName: String,
         private val deepLinkConfig: DeepLinkConfig? = null
     ) {
-        private val routeList = mutableMapOf<Destination, INTENT_CREATOR>()
+        private val routeList = mutableMapOf<Destination, CREATOR_ACTION>()
         private val deepLinkList = mutableMapOf<String, AbstractExecutor>()
         private val graphList = mutableListOf<RouteGraph>()
 
-        fun addRoute(
-            route: Destination,
-            creator: INTENT_CREATOR
+        fun addDestination(
+            destination: Destination,
+            creator: CREATOR_ACTION
         ) {
-            routeList[route] = creator
+            routeList[destination] = creator
         }
 
         fun addDeepLink(
             path: String,
-            executor: LINK_EXECUTOR
+            executor: EXECUTOR_ACTION
         ) {
             addDeepLink(path, executor.toRouting())
         }
@@ -208,7 +208,7 @@ class RouteGraph internal constructor(
                     setPath(deepLinkConfig.prefixPath)
                 }
                 for ((destination, creator) in routeList) {
-                    this.addRoute(destination, CreateRoutingImpl(creator))
+                    this.addDestination(destination, CreateRoutingImpl(creator))
                 }
                 for ((path, executor) in deepLinkList) {
                     this.addDeepLink(
