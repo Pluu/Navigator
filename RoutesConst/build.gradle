@@ -1,15 +1,17 @@
+import dependencies.Dep
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion Config.compileSdk
+    buildToolsVersion Config.buildTools
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion Config.minSdk
+        targetSdkVersion Config.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -34,5 +36,5 @@ android {
 
 dependencies {
     api project(path: ':Navigator')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation Dep.Kotlin.stdlib
 }

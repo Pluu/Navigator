@@ -1,15 +1,17 @@
+import dependencies.Dep
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion Config.compileSdk
+    buildToolsVersion Config.buildTools
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion Config.minSdk
+        targetSdkVersion Config.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -33,8 +35,8 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.fragment:fragment-ktx:1.2.5'
-    compileOnly "androidx.databinding:viewbinding:$androidGradlePlugin_version"
+    implementation Dep.Kotlin.stdlib
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.fragmentKtx
+    compileOnly Dep.AndroidX.viewBinding
 }

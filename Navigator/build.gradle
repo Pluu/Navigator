@@ -1,15 +1,17 @@
+import dependencies.Dep
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion Config.compileSdk
+    buildToolsVersion Config.buildTools
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion Config.minSdk
+        targetSdkVersion Config.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -41,17 +43,17 @@ android {
 dependencies {
     implementation project(path: ':core-android')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.fragment:fragment-ktx:1.2.5'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation Dep.Kotlin.stdlib
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.fragmentKtx
+    implementation Dep.gson
+    implementation Dep.timber
 
-    testImplementation 'junit:junit:4.13.1'
-    testImplementation 'androidx.test:core:1.3.0'
-    testImplementation 'org.mockito:mockito-core:3.7.0'
-    testImplementation 'org.robolectric:robolectric:4.5.1'
+    testImplementation Dep.Test.junit
+    testImplementation Dep.AndroidX.Test.core
+    testImplementation Dep.Test.mockito
+    testImplementation Dep.Test.robolectric
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation Dep.AndroidX.Test.junit
+    androidTestImplementation Dep.AndroidX.Test.espressoCore
 }

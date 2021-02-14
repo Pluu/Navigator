@@ -1,15 +1,17 @@
+import dependencies.Dep
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion Config.compileSdk
+    buildToolsVersion Config.buildTools
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion Config.minSdk
+        targetSdkVersion Config.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -40,11 +42,11 @@ dependencies {
     implementation project(path: ':RoutesConst')
     implementation project(path: ':core-android')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation Dep.Kotlin.stdlib
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.appCompat
+    implementation Dep.AndroidX.material
+    testImplementation Dep.Test.junit
+    androidTestImplementation Dep.AndroidX.Test.junit
+    androidTestImplementation Dep.AndroidX.Test.espressoCore
 }
