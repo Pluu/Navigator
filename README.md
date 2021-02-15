@@ -1,3 +1,14 @@
+# Navigator
+
+Navigator 라이브러리는 `멀티 모듈 간의 화면 이동`을 유연하게 정의하고 사용하기 위한 목적으로 만들어졌습니다.
+
+## Target
+
+현재 화면 이동은 다음 Android Component를 지원합니다.
+
+- Activity/Fragment to Activity
+- Fragment (TBD)
+
 ## Multi module sample
 
 ```
@@ -92,13 +103,13 @@ sampleProvider.provide()
 
 ## Define DeepLink
 
-The parameter value of deep link is created as follows.
+딥 링크의 파라미터 값은 다음과 같이 생성됩니다.
 
-- Query parameter placeholders in the form of `{placeholder_name}` match one or more characters
-  - For example, http://www.example.com/search/id={id} matches http://www.example.com/search/id=4
-- The delivered deep link delivers parameter value with each `{placeholder name}` as key
-  - For example, http://www.example.com/search/arg1={arg_1}&arg2={arg_2} matches http://www.example.com/search/arg1=sample1=arg2=sample2
-  - It is finally constructed in this map. arg_1 = sample1, arg_2 = sample2
+- `{placeholder_name}` 형식의 쿼리 매개변수 자리표시자는 1개 이상의 문자와 일치합니다.
+  - 예) http://www.example.com/search/id={id} 는 http://www.example.com/search/id=4 과 일치합니다.
+- 전달된 딥 링크는 각 `{placeholder name}`  형식을 키로하여 매개변수 값을 전달합니다.
+  - 예) http://www.example.com/search/arg1={arg_1}&arg2={arg_2} 는 http://www.example.com/search/arg1=sample1=arg2=sample2 과 일치합니다.
+  - 최종적으로 다음의 Map 형태로 구성됩니다. arg_1 = sample1, arg_2 = sample2
 
 ### Register Pattern#1 : Provider Interface
 
@@ -111,15 +122,15 @@ import com.pluu.navigator.provider.Provider
 class SampleProvider : Provider {
     override fun provide() {
         // Simple
-        DeepLink("pluu://feature1").register { starter, deepLinkMatch ->
+        DeepLink("pluu://feature1").register { starter, result ->
             val intent = Intent(starter.context, SampleActivity::class.java)
             starter.start(intent)
         }
       
         // Base Scheme + Path
-        DeepLink("feature1?type={type}").register { starter, deepLinkMatch ->
+        DeepLink("feature1?type={type}").register { starter, result ->
             // Sample : pluu://feature1?type=123
-            // deepLinkMatch.args
+            // result.args
             // +------+-------+
             // | Key  | Value |
             // +------+-------+
@@ -146,15 +157,15 @@ import com.pluu.navigator.provider.deepLinkProvider
 // Step1. Define DeepLink
 
 // Provider
-val DeepLink_Simple: Provider = deepLinkProvider("pluu://feature1") { starter, deepLinkMatch ->
+val DeepLink_Simple: Provider = deepLinkProvider("pluu://feature1") { starter, result ->
     val intent = Intent(starter.context, SampleActivity::class.java)
     starter.start(intent)
 }
 
 // Provider : Base Scheme + Path
-val DeepLink_Relative_Path: Provider = deepLinkProvider("feature1/sample1?type={type}") { starter, deepLinkMatch ->
+val DeepLink_Relative_Path: Provider = deepLinkProvider("feature1/sample1?type={type}") { starter, result ->
     // Sample : pluu://feature1/sample1?type=123
-    // deepLinkMatch.args
+    // result.args
     // +------+-------+
     // | Key  | Value |
     // +------+-------+
@@ -251,7 +262,7 @@ val sampleGraph: RouteGraph.Builder = RouteGraph.Builder(
     }
   
     // Add DeepLink
-    addDeepLink(/** */) { starter, deepLinkMatch -> 
+    addDeepLink(/** */) { starter, result -> 
         val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
@@ -279,22 +290,20 @@ val sampleGraph: RouteGraph = routeGraph(
 
     // URL : pluu://feature1 
     // Base Scheme + DeepLink-config Prefix Path + Path
-    addDeepLink("/") { starter, deepLinkMatch -> 
+    addDeepLink("/") { starter, result -> 
         val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
-        // Feature1::aaa
-        // arg -> gson or 
     }
 
     // URL : pluu://feature1/1
     // Base Scheme + DeepLink-config Prefix Path + Path
-    addDeepLink("1") { starter, deepLinkMatch ->
+    addDeepLink("1") { starter, result ->
         val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
 
     // URL : luckystar://izumi/konata
-    addDeepLink("luckystar://izumi/konata") { starter, deepLinkMatch -> 
+    addDeepLink("luckystar://izumi/konata") { starter, result -> 
         val intent = Intent(starter.context, SampleActivity::class.java)
         starter.start(intent)
     }
