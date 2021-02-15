@@ -27,8 +27,8 @@ private val Feature1_Graph = routeGraph(
         starter.start(starter.context.buildIntent<Feature1Activity>())
     }
 
-    addDeepLink("/sample1?type={type}") { starter, deepLinkMatch ->
-        val args = deepLinkMatch.args.toArray()
+    addDeepLink("/sample1?type={type}") { starter, result->
+        val args = result.args.toArray()
         starter.start(starter.context.buildIntent<Feature1Activity>(*args))
     }
 
@@ -64,8 +64,8 @@ private val Feature1_GraphBuilder = RouteGraph.Builder(
         starter.start(starter.context.buildIntent<Feature1Activity>())
     }
 
-    addDeepLink("/sample1?type={type}") { starter, deepLinkMatch ->
-        val args = deepLinkMatch.args.toArray()
+    addDeepLink("/sample1?type={type}") { starter, result->
+        val args = result.args.toArray()
         starter.start(starter.context.buildIntent<Feature1Activity>(*args))
     }
 

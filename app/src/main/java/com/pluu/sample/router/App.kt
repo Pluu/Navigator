@@ -29,14 +29,14 @@ class App : Application() {
         // Register provider
         ///////////////////////////////////////////////////////////////////////////
         listOf(
-            // Function Pattern
-            *sample_feature1_function_pattern.toTypedArray(),
             // Simple Provider pattern (Function)
             com.pluu.sample.featurehome.navigator.Home_Route_Provider,
+            // Function Pattern
+            *sample_feature1_function_pattern.toTypedArray(),
             // Provider pattern (Interface)
             *sample_feature1_provider_pattern.toTypedArray(),
             // Feature 2 samples
-            *sample_feature2_pattern.toTypedArray(),
+            *sample_feature2_pattern.toTypedArray()
         ).forEach {
             it.provide()
         }

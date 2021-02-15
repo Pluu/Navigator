@@ -19,8 +19,8 @@ private val DeepLink_Simple =
 
 // Provider (Relative Path)
 private val DeepLink_Relative_Path =
-    deepLinkProvider("feature1/sample1?type={type}") { starter, deepLinkMatch ->
-        val args = deepLinkMatch.args.toArray()
+    deepLinkProvider("feature1/sample1?type={type}") { starter, result->
+        val args = result.args.toArray()
         starter.start(starter.context.buildIntent<Feature1Activity>(*args))
     }
 
@@ -36,6 +36,14 @@ private class SampleCommand(
     }
 }
 
+// Provider (Path & Multiple Argument)
+private val PathDeepLinkSample = deepLinkProvider(
+    "pluu://featurePath/{id}/info?arg1={arg1}&arg2={arg2}"
+) { starter, result ->
+    val args = result.args.toArray()
+    starter.start(starter.context.buildIntent<Feature1Activity>(*args))
+}
+
 ///////////////////////////////////////////////////////////////////////////
 // Sample Definition
 ///////////////////////////////////////////////////////////////////////////
@@ -43,5 +51,6 @@ private class SampleCommand(
 val sample_feature1_function_pattern = listOf(
     DeepLink_Simple,
     DeepLink_Relative_Path,
-    DeepLink_Command
+    DeepLink_Command,
+    PathDeepLinkSample
 )
