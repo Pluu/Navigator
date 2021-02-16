@@ -339,3 +339,6 @@ val sampleGraph = routeGraph(
 }
 ```
 
+## Architecture
+
+<img src="art/architecture.png" />
