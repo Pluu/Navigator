@@ -31,6 +31,7 @@ class Feature2Activity : AppCompatActivity(R.layout.activity_feature2) {
         """.trimIndent()
 
         binding.btnFinish.setOnClickListener {
+            setResult(RESULT_OK)
             finish()
         }
     }

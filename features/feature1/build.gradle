@@ -43,8 +43,8 @@ dependencies {
     implementation project(path: ':core-android')
 
     implementation Dep.Kotlin.stdlib
-    implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.appCompat
+    implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.material
     implementation Dep.timber
     testImplementation Dep.Test.junit

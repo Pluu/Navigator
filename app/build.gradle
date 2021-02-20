@@ -46,11 +46,11 @@ dependencies {
     implementation project(path: ':feature2')
 
     implementation Dep.Kotlin.stdlib
-    implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.appCompat
+    implementation Dep.AndroidX.constraintLayout
+    implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.lifecycle
     implementation Dep.AndroidX.material
-    implementation Dep.AndroidX.constraintLayout
     implementation Dep.timber
     testImplementation Dep.Test.junit
     androidTestImplementation Dep.AndroidX.Test.junit

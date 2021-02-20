@@ -44,6 +44,7 @@ dependencies {
     implementation project(path: ':core-android')
 
     implementation Dep.Kotlin.stdlib
+    implementation Dep.AndroidX.activityKtx
     implementation Dep.AndroidX.coreKtx
     implementation Dep.AndroidX.fragmentKtx
     implementation Dep.gson

@@ -43,10 +43,11 @@ dependencies {
     implementation project(path: ':core-android')
 
     implementation Dep.Kotlin.stdlib
-    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.activityKtx
     implementation Dep.AndroidX.appCompat
-    implementation Dep.AndroidX.material
     implementation Dep.AndroidX.constraintLayout
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.material
     testImplementation Dep.Test.junit
     androidTestImplementation Dep.AndroidX.Test.junit
     androidTestImplementation Dep.AndroidX.Test.espressoCore

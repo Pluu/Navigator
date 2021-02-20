@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.pluu.navigator.Navigator
@@ -23,11 +24,19 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
 
     private val sampleRequestCode = 100
 
+    private val sampleLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { activityResult ->
+        showToast("ActivityResultContracts Test\n${activityResult}")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.container.addTitle("Navigator Sample")
         initProviderSample()
+        binding.container.addDivider()
+        initActivityResultLauncher()
         binding.container.addDivider()
         initGraph()
         binding.container.addDivider()
@@ -44,6 +53,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             text = "Routes1.Feature1"
         ) {
             Navigator.of(this)
+                .start(Routes1.Feature1)
+        }
+        binding.container.addRoute(
+            label = "Route for Result",
+            text = "Routes1.Feature1"
+        ) {
+            Navigator.of(this)
                 .startForResult(Routes1.Feature1, sampleRequestCode)
         }
         binding.container.addRoute(
@@ -53,6 +69,16 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             Navigator.of(this).start(
                 direction = Routes2.Feature2,
                 param = SampleParam(123_456_789)
+            )
+        }
+        binding.container.addRoute(
+            label = "Route with Parameter",
+            text = "Routes2.Feature2 with SampleParam(123_456_789)"
+        ) {
+            Navigator.of(this).startForResult(
+                direction = Routes2.Feature2,
+                param = SampleParam(123_456_789),
+                requestCode = sampleRequestCode
             )
         }
 
@@ -112,6 +138,35 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         ) {
             Navigator.of(this)
                 .execute("pluu://featurePath/pluu/info?arg1=abc&arg2=def")
+        }
+    }
+
+    private fun initActivityResultLauncher() {
+        binding.container.addText("ActivityResultLauncher Sample")
+
+        binding.container.addRoute(
+            label = "Route for Resul",
+            text = "Routes1.Feature1"
+        ) {
+            Navigator.of(this)
+                .startForResult(
+                    direction = Routes1.Feature1,
+                    launcher = sampleLauncher
+                )
+        }
+
+        binding.container.addRoute(
+            label = "Route with Parameter",
+            text = "Routes2.Feature2 with SampleParam(value = 123_456_789, value2 = Test)"
+        ) {
+            Navigator.of(this).startForResult(
+                direction = Routes2.Feature2,
+                param = SampleParam(
+                    value = 123_456_789,
+                    value2 = "Test"
+                ),
+                launcher = sampleLauncher
+            )
         }
     }
 
