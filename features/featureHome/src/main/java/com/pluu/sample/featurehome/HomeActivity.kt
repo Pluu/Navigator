@@ -12,8 +12,8 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.pluu.navigator.Navigator
 import com.pluu.sample.featurehome.databinding.ActivityHomeBinding
-import com.pluu.sample.routeconst.Routes1
-import com.pluu.sample.routeconst.Routes2
+import com.pluu.sample.routeconst.Direction1
+import com.pluu.sample.routeconst.Direction2
 import com.pluu.sample.routeconst.SampleParam
 import com.pluu.utils.dp2px
 import com.pluu.utils.showToast
@@ -53,21 +53,21 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             text = "Routes1.Feature1"
         ) {
             Navigator.of(this)
-                .start(Routes1.Feature1)
+                .start(Direction1.Feature1)
         }
         binding.container.addRoute(
             label = "Route for Result",
             text = "Routes1.Feature1"
         ) {
             Navigator.of(this)
-                .startForResult(Routes1.Feature1, sampleRequestCode)
+                .startForResult(Direction1.Feature1, sampleRequestCode)
         }
         binding.container.addRoute(
             label = "Route with Parameter",
             text = "Routes2.Feature2 with SampleParam(123_456_789)"
         ) {
             Navigator.of(this).start(
-                direction = Routes2.Feature2,
+                direction = Direction2.Feature2,
                 param = SampleParam(123_456_789)
             )
         }
@@ -76,7 +76,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             text = "Routes2.Feature2 with SampleParam(123_456_789)"
         ) {
             Navigator.of(this).startForResult(
-                direction = Routes2.Feature2,
+                direction = Direction2.Feature2,
                 param = SampleParam(123_456_789),
                 requestCode = sampleRequestCode
             )
@@ -150,7 +150,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         ) {
             Navigator.of(this)
                 .startForResult(
-                    direction = Routes1.Feature1,
+                    direction = Direction1.Feature1,
                     launcher = sampleLauncher
                 )
         }
@@ -160,7 +160,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             text = "Routes2.Feature2 with SampleParam(value = 123_456_789, value2 = Test)"
         ) {
             Navigator.of(this).startForResult(
-                direction = Routes2.Feature2,
+                direction = Direction2.Feature2,
                 param = SampleParam(
                     value = 123_456_789,
                     value2 = "Test"
@@ -178,7 +178,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             text = "Routes1.Feature1_Graph"
         ) {
             Navigator.of(this)
-                .start(Routes1.Feature1Graph)
+                .start(Direction1.Feature1Graph)
         }
         binding.container.addRoute(
             label = "DeepLink > Default Path",
@@ -229,7 +229,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
             text = "Routes1.Feature1_Graph"
         ) {
             Navigator.of(this)
-                .start(Routes1.Feature1Graph2)
+                .start(Direction1.Feature1Graph2)
         }
         binding.container.addDeepLink(
             label = "DeepLink > Default Path",
@@ -267,7 +267,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         ) {
             Navigator.of(this)
                 .start(
-                    direction = Routes2.Feature2ForJava,
+                    direction = Direction2.Feature2ForJava,
                     param = SampleParam(987_654_321)
                 )
         }

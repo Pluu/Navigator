@@ -8,13 +8,13 @@ object Home {
     object Default : Direction()
 }
 
-object Routes1 {
+object Direction1 {
     object Feature1 : Direction()
     object Feature1Graph : Direction()
     object Feature1Graph2 : Direction()
 }
 
-object Routes2 {
+object Direction2 {
     object Feature2 : DirectionWithParam<SampleParam>()
     object Feature2ForJava : DirectionWithParam<SampleParam>()
 }
