@@ -46,20 +46,17 @@ val config = NavigatorController.Config(
 Navigator.registerConfig(config)
 ```
 
-## Define Route
+## Define Direction
 
-Define navigation routes
+Define navigation directions
 
 ```kotlin
 import com.pluu.navigator.Direction
 import com.pluu.navigator.DirectionParam
 import com.pluu.navigator.DirectionWithParam
 
-object Routes1 {
+object SampleDirection {
     object Feature1 : Direction()
-}
-
-object Routes2 {
     object Feature2 : DirectionWithParam<SampleParam>()
 }
 
@@ -74,7 +71,7 @@ import com.pluu.navigator.provider.Provider
 // Step1. Define Route
 class SampleProvider : Provider {
     override fun provide() {
-        Routes1.Feature1.register { starter ->
+        SampleDirection.Feature1.register { starter ->
             Intent(starter.context, SampleActivity::class.java)
         }
         // more ...
@@ -93,12 +90,58 @@ sampleProvider.provide()
 import com.pluu.navigator.provider.routeProvider
 
 // Step1. Define Route
-val sampleProvider = routeProvider(Routes2.Feature1) { starter ->
+val sampleProvider = routeProvider(SampleDirection.Feature1) { starter ->
     Intent(starter.context, SampleActivity::class.java)
 }
 
 // Step2. Register route
 sampleProvider.provide()
+```
+
+### Using direction
+
+Simple startActivity
+
+```kotlin
+Navigator.of(/** Activity or Fragment */)
+   .start(/** Direction */)
+
+Navigator.of(/** Activity or Fragment */)
+   .start(direction = /** Direction */, param = /** param */)
+```
+
+Simple startActivityForResult
+
+```kotlin
+Navigator.of(/** Activity or Fragment */)
+   .startForResult(
+      direction = /** Direction */, 
+      requestCode = /** Request Code */
+   )
+
+Navigator.of(/** Activity or Fragment */)
+   .startForResult(
+      direction = /** Direction */, 
+      param = /** param */, 
+   		requestCode = /** Request Code */
+   )
+```
+
+Simple startActivityForResult ActivityResultLauncher
+
+```kotlin
+Navigator.of(/** Activity or Fragment */)
+   .startForResult(
+      direction = /** Direction */, 
+      launcher = /** ActivityResultLauncher Launcher */
+   )
+
+Navigator.of(/** Activity or Fragment */)
+   .startForResult(
+      direction = /** Direction */, 
+      param = /** param */, 
+      launcher = /** ActivityResultLauncher Launcher */
+   )
 ```
 
 ## Define DeepLink
@@ -313,6 +356,13 @@ val sampleGraph: RouteGraph = routeGraph(
 Navigator.addDestinations(sampleGraph)
 ```
 
+### Using deeplink
+
+```kotlin
+Navigator.of(this)
+   .execute("pluu://feature1/sample1?type=123")
+```
+
 ## Extension
 
 DeepLink#register
@@ -342,3 +392,4 @@ val sampleGraph = routeGraph(
 ## Architecture
 
 <img src="art/architecture.png" />
+
