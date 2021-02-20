@@ -15,13 +15,13 @@ interface Routing
 ///////////////////////////////////////////////////////////////////////////
 
 interface CreateRouting : Routing {
-    fun create(starter: Starter): Intent
+    fun createIntent(starter: Starter): Intent
 }
 
 internal class CreateRoutingImpl(
     private val creator: CREATOR_ACTION
 ) : CreateRouting {
-    override fun create(starter: Starter) = creator(starter)
+    override fun createIntent(starter: Starter) = creator(starter)
 }
 
 ///////////////////////////////////////////////////////////////////////////

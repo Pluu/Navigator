@@ -99,7 +99,7 @@ class NavigatorStarter(
         val routing = findRouting(destination) ?: return
         logger.d("matched route ${destination.path}")
 
-        val intent = routing.create(starter)
+        val intent = routing.createIntent(starter)
         applyBundle(param, intent, navOption)
 
         if (requestCode != null) {
@@ -118,7 +118,7 @@ class NavigatorStarter(
         val routing = findRouting(destination) ?: return
         logger.d("matched route ${destination.path}")
 
-        val intent = routing.create(starter)
+        val intent = routing.createIntent(starter)
         applyBundle(param, intent, navOption)
 
         launcher.launch(intent)
