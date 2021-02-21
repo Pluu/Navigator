@@ -2,14 +2,18 @@
 
 Navigator 라이브러리는 `멀티 모듈 간의 화면 이동`을 유연하게 정의하고 사용하기 위한 목적으로 만들어졌습니다.
 
-## Target
+### Target
 
 현재 화면 이동은 다음 Android Component를 지원합니다.
 
 - Activity/Fragment to Activity
 - Fragment (TBD)
 
-## Multi module sample
+### Architecture
+
+<img src="art/architecture.png" />
+
+### Multi module sample
 
 ```
 project
@@ -31,7 +35,7 @@ project
 
 ## Define Configuration
 
-### Config
+## 1. Config
 
 - DeepLink Base Scheme
 
@@ -46,7 +50,7 @@ val config = NavigatorController.Config(
 Navigator.registerConfig(config)
 ```
 
-## Define Direction
+## 2. Define Direction
 
 Define navigation directions
 
@@ -179,7 +183,7 @@ class SampleActivity : AppCompatActivity(R.layout.activity_sample) {
 }
 ```
 
-## Define DeepLink
+## 3. Define DeepLink
 
 딥 링크의 파라미터 값은 다음과 같이 생성됩니다.
 
@@ -320,7 +324,7 @@ val sampleProvider: Provider = /** Provider */
 sampleProvider.provide()
 ```
 
-## Define Graph
+## 4. Define Graph
 
 ### Register Pattern#1 : Builder Pattern
 
@@ -398,7 +402,7 @@ Navigator.of(this)
    .execute("pluu://feature1/sample1?type=123")
 ```
 
-## Extension
+## 5. Extension
 
 DeepLink#register
 
@@ -423,8 +427,3 @@ val sampleGraph = routeGraph(
     addDeepLink<SampleCommand>("/** DeepLink */")
 }
 ```
-
-## Architecture
-
-<img src="art/architecture.png" />
-
