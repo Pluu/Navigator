@@ -144,7 +144,7 @@ class NavigatorStarter(
         navOption: NavOptions?
     ) {
         if (param != null) {
-            intent.putExtra(ROUTE_PARAMS_KEY, param)
+            intent.putExtra(DIRECTION_PARAMS_KEY, param)
         }
 
         if (navOption != null) {

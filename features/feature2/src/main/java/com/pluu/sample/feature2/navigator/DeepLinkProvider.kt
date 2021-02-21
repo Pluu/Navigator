@@ -1,8 +1,8 @@
 package com.pluu.sample.feature2.navigator
 
+import com.pluu.navigator.DIRECTION_PARAMS_KEY
 import com.pluu.navigator.DeepLink
 import com.pluu.navigator.DeepLinkCommand
-import com.pluu.navigator.ROUTE_PARAMS_KEY
 import com.pluu.navigator.provider.Provider
 import com.pluu.navigator.starter.Starter
 import com.pluu.navigator.util.register
@@ -16,7 +16,7 @@ internal class DeepLinkProvider : Provider {
         DeepLink("pluu://feature2").register { starter, _ ->
             starter.start(
                 starter.context.buildIntent<Feature2Activity>(
-                    ROUTE_PARAMS_KEY to SampleParam(100)
+                    DIRECTION_PARAMS_KEY to SampleParam(100)
                 )
             )
         }

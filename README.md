@@ -98,7 +98,7 @@ val sampleProvider = routeProvider(SampleDirection.Feature1) { starter ->
 sampleProvider.provide()
 ```
 
-### Using direction
+### Using direction ~ Navigator
 
 Simple startActivity
 
@@ -142,6 +142,41 @@ Navigator.of(/** Activity or Fragment */)
       param = /** param */, 
       launcher = /** ActivityResultLauncher Launcher */
    )
+```
+
+### Using direction ~ Received parameter
+
+Navigator로 전달된 데이터는 `DIRECTION_PARAMS_KEY` 를 키로 하여 `Serializable` 로 Intent에 담아서 꺼냅니다.
+
+```kotlin
+package com.pluu.navigator
+
+const val DIRECTION_PARAMS_KEY = "DIRECTION_PARAMS_KEY"
+```
+
+Simple Function
+
+- getter 함수를 가지는 bindExtra는 DIRECTION_PARAMS_KEY를 키로 하여 넘겨진 `Serializable` 데이터에서 특정 필드를 가져올 때 유용한 함수입니다.
+
+|                                            | NonNull Return |
+| ------------------------------------------ | -------------- |
+| bindExtra<T>                               | O              |
+| optionalBindExtra<T>                       | X              |
+| bindExtra<T, R>(getter: (T)  -> R)         | O              |
+| optionalBindExtra<T, G>(getter: (T)  -> R) | X              |
+
+```kotlin
+class SampleActivity : AppCompatActivity(R.layout.activity_sample) {
+    
+    private val param1 by bindExtra</**Getter Type*/>()  
+    private val param2 by optionalBindExtra</**Getter Type*/>()
+    private val param3 by bindExtra</**Root Type*/, /**Getter Type*/> {
+			// do return action
+    }
+    private val param4 by optionalBindExtra</**Root Type*/, /**Getter Type*/> {
+			// do return action
+    }
+}
 ```
 
 ## Define DeepLink
