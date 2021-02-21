@@ -427,3 +427,10 @@ val sampleGraph = routeGraph(
     addDeepLink<SampleCommand>("/** DeepLink */")
 }
 ```
+
+## 99. Etc
+
+Reference
+
+- API Reference : https://github.com/florent37/Navigator
+- DeepLink Matcher : AndroidX Navigation
