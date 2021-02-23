@@ -297,7 +297,7 @@ val sampleProvider: Provider = /** Provider */
 sampleProvider.provide()
 ```
 
-#### Futional
+#### Functional
 
 ```kotlin
 import com.pluu.navigator.DeepLinkCommand
