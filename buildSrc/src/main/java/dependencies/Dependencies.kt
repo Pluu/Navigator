@@ -24,7 +24,7 @@ object Dep {
     }
 
     object Kotlin {
-        const val version = "1.4.30"
+        const val version = "1.4.31"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${version}"
     }
 
@@ -35,7 +35,6 @@ object Dep {
     }
 
     const val gson = "com.google.code.gson:gson:2.8.6"
-    const val mockito = "junit:junit:4.13.1"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
 
 }
