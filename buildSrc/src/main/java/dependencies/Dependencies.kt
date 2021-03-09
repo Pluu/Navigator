@@ -29,7 +29,7 @@ object Dep {
     }
 
     object Test {
-        const val mockito = "org.mockito:mockito-core:3.7.0"
+        const val mockito = "org.mockito:mockito-core:3.8.0"
         const val junit = "junit:junit:4.13.1"
         const val robolectric = "org.robolectric:robolectric:4.5.1"
     }
