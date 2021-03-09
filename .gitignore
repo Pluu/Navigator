@@ -185,7 +185,7 @@ obj/
 .idea/misc.xml
 .idea/modules.xml
 .idea/scopes/scope_settings.xml
-.idea/dictionaries
+#.idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
 .idea/datasources.xml
