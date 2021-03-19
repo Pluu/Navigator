@@ -2,7 +2,7 @@ package dependencies
 
 object Dep {
     object GradlePlugin {
-        const val agpVersion = "4.1.2"
+        const val agpVersion = "4.1.3"
         const val android = "com.android.tools.build:gradle:$agpVersion"
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
     }
