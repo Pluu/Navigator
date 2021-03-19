@@ -58,3 +58,11 @@ dependencies {
     androidTestImplementation Dep.AndroidX.Test.junit
     androidTestImplementation Dep.AndroidX.Test.espressoCore
 }
+
+tasks.withType(Test) {
+    testLogging {
+        outputs.upToDateWhen { false }
+        showStandardStreams = true
+        events "passed", "skipped", "failed"
+    }
+}
