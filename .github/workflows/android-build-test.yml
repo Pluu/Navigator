@@ -3,7 +3,7 @@ name: android build test
 on:
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   build:
