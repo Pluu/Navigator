@@ -21,5 +21,5 @@ object NavigatorController {
     )
 }
 
-internal inline val Any.logger: Logger
+internal inline val logger: Logger
     get() = NavigatorController.config.logger

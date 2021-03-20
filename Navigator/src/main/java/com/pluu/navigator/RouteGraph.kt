@@ -41,7 +41,7 @@ class RouteGraph internal constructor(
         val completedDestination = destination.takeIf {
             it.path.hasScheme()
         } ?: let {
-            logger.d("[$name] Migration ${destination.path} to ${path} ")
+            logger.d("[$name] Migration ${destination.path} to $path ")
             DeepLink(path)
         }
 

@@ -53,6 +53,7 @@ dependencies {
     testImplementation Dep.Test.junit
     testImplementation Dep.AndroidX.Test.core
     testImplementation Dep.Test.mockito
+    testImplementation Dep.Test.mockitoInline
     testImplementation Dep.Test.robolectric
 
     androidTestImplementation Dep.AndroidX.Test.junit
