@@ -1,5 +1,6 @@
 package com.pluu.navigator
 
+import androidx.annotation.VisibleForTesting
 import androidx.collection.ArrayMap
 import androidx.collection.SparseArrayCompat
 import androidx.collection.contains
@@ -160,6 +161,12 @@ class RouteGraph internal constructor(
             }
         }
         return null
+    }
+
+    @VisibleForTesting
+    fun clear() {
+        routingNodes.clear()
+        deepLinks.clear()
     }
 
     class Builder(

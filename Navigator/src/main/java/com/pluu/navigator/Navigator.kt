@@ -1,6 +1,7 @@
 package com.pluu.navigator
 
 import android.app.Activity
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import com.pluu.navigator.starter.ActivityStarter
 import com.pluu.navigator.starter.FragmentStarter
@@ -9,7 +10,8 @@ import com.pluu.navigator.util.toRouting
 
 object Navigator {
 
-    private val coreGraph = RouteGraph()
+    @VisibleForTesting
+    val coreGraph = RouteGraph()
     private val deepLinkExecutor = DeepLinkExecutor()
 
     internal fun addDestination(
