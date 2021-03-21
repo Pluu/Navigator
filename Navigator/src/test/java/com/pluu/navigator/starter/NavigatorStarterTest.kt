@@ -51,7 +51,7 @@ class NavigatorStarterTest {
 
     private var invokeDeepLinkResult: DeepLinkMatchResult? = null
 
-    object InvokeResult {
+    private object InvokeResult {
         var invokeDeepLinkCommandCount = 0
         var invokeDeepLinkCommand_arg1: String? = null
         var invokeDeepLinkCommand_arg2: Int? = null
