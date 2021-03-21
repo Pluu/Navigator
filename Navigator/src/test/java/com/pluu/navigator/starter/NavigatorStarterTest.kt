@@ -249,17 +249,6 @@ class NavigatorStarterTest {
         assertEquals("abcd", InvokeResult.invokeDeepLinkCommand_arg1)
         assertEquals(1234, InvokeResult.invokeDeepLinkCommand_arg2)
     }
-
-    @Test
-    fun testExecuteCommand2() {
-        val runResult = navigatorStarter.execute("pluu://test3?arg1=abcd&arg2=1234")
-        assertTrue(runResult)
-
-        // Check argument
-        assertEquals(1, InvokeResult.invokeDeepLinkCommandCount)
-        assertEquals("abcd", InvokeResult.invokeDeepLinkCommand_arg1)
-        assertEquals(1234, InvokeResult.invokeDeepLinkCommand_arg2)
-    }
 }
 
 private class TestWithParam(
