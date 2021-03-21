@@ -180,32 +180,32 @@ class RouteGraph internal constructor(
         fun addDestination(
             destination: Destination,
             creator: CREATOR_ACTION
-        ) {
+        ) = apply {
             routeList[destination] = creator
         }
 
         fun addDeepLink(
             path: String,
             executor: EXECUTOR_ACTION
-        ) {
+        ) = apply {
             addDeepLink(path, executor.toRouting())
         }
 
         fun addDeepLink(
             path: String,
             executor: AbstractExecutor
-        ) {
+        ) = apply {
             deepLinkList[path] = executor
         }
 
         fun <T : DeepLinkCommand> addDeepLink(
             path: String,
             deepLinkCommand: Class<T>
-        ) {
+        ) = apply {
             addDeepLink(path, CommandRouting(deepLinkCommand))
         }
 
-        fun addGraph(routeGraph: RouteGraph) {
+        fun addGraph(routeGraph: RouteGraph) = apply {
             graphList.add(routeGraph)
         }
 
