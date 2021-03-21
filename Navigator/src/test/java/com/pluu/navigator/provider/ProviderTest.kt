@@ -2,11 +2,19 @@ package com.pluu.navigator.provider
 
 import android.content.Intent
 import androidx.core.net.toUri
-import com.pluu.navigator.*
+import com.pluu.navigator.CommandRouting
+import com.pluu.navigator.CreateRouting
+import com.pluu.navigator.DeepLink
+import com.pluu.navigator.DeepLinkCommand
+import com.pluu.navigator.Direction
+import com.pluu.navigator.ExecuteRouting
+import com.pluu.navigator.Navigator
 import com.pluu.navigator.deeplink.DeepLinkMatchResult
 import com.pluu.navigator.deeplink.DeepLinkRequest
 import com.pluu.navigator.starter.Starter
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

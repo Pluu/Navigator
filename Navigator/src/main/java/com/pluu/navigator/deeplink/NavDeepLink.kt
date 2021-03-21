@@ -3,7 +3,6 @@ package com.pluu.navigator.deeplink
 import android.net.Uri
 import androidx.core.net.toUri
 import com.pluu.navigator.util.hasScheme
-import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 

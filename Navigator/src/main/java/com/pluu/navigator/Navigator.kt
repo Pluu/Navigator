@@ -54,4 +54,9 @@ object Navigator {
     fun registerConfig(config: NavigatorController.Config) {
         NavigatorController.setConfig(config)
     }
+
+    @VisibleForTesting
+    fun reset() {
+        coreGraph.clear()
+    }
 }

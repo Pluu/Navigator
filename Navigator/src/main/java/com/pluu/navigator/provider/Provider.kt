@@ -1,6 +1,10 @@
 package com.pluu.navigator.provider
 
-import com.pluu.navigator.*
+import com.pluu.navigator.AbstractRoute
+import com.pluu.navigator.CREATOR_ACTION
+import com.pluu.navigator.DeepLink
+import com.pluu.navigator.DeepLinkCommand
+import com.pluu.navigator.EXECUTOR_ACTION
 import com.pluu.navigator.util.deepLinkProvider
 import com.pluu.navigator.util.toRouting
 
