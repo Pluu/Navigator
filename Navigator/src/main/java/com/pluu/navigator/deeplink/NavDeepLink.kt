@@ -1,6 +1,7 @@
 package com.pluu.navigator.deeplink
 
 import android.net.Uri
+import androidx.annotation.RestrictTo
 import androidx.core.net.toUri
 import com.pluu.navigator.util.hasScheme
 import java.util.regex.Matcher
@@ -10,44 +11,50 @@ import java.util.regex.Pattern
 // ref: https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:navigation/navigation-common/src/main/java/androidx/navigation/NavDeepLink.java
 ///////////////////////////////////////////////////////////////////////////
 internal class NavDeepLink(
-    val uri: String
+    val uriPattern: String
 ) {
-    private val arguments = ArrayList<String>()
-    private val mParamArgMap = HashMap<String, ParamQuery>()
-
-    private var mExactDeepLink = false
-    private var mIsParameterizedQuery = false
+    private val arguments = mutableListOf<String>()
+    private val paramArgMap = mutableMapOf<String, ParamQuery>()
     private var pattern: Pattern? = null
+    private var isParameterizedQuery = false
+
+    public var isExactDeepLink: Boolean = false
+        @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+        get
+        internal set
 
     init {
-        if (uri.isNotEmpty()) {
-            val parameterizedUri = Uri.parse(uri)
-            mIsParameterizedQuery = parameterizedUri.query != null
-
+        if (uriPattern.isNotEmpty()) {
+            val parameterizedUri = Uri.parse(uriPattern)
+            isParameterizedQuery = parameterizedUri.query != null
             val uriRegex = StringBuilder("^")
-
-            if (!uri.hasScheme()) {
+            if (!uriPattern.hasScheme()) {
                 uriRegex.append("http[s]?://")
             }
+            @Suppress("RegExpRedundantEscape")
             val fillInPattern = Pattern.compile("\\{(.+?)\\}")
-            if (mIsParameterizedQuery) {
-                var matcher = Pattern.compile("(\\?)").matcher(uri)
+            if (isParameterizedQuery) {
+                var matcher = Pattern.compile("(\\?)").matcher(uriPattern)
                 if (matcher.find()) {
-                    buildPathRegex(uri.substring(0, matcher.start()), uriRegex, fillInPattern)
+                    buildPathRegex(
+                        uriPattern.substring(0, matcher.start()),
+                        uriRegex,
+                        fillInPattern
+                    )
                 }
-                mExactDeepLink = false
+                isExactDeepLink = false
                 for (paramName in parameterizedUri.queryParameterNames) {
                     val argRegex = StringBuilder()
-                    val queryParam = parameterizedUri.getQueryParameter(paramName)
+                    val queryParam = parameterizedUri.getQueryParameter(paramName) as String
                     matcher = fillInPattern.matcher(queryParam)
                     var appendPos = 0
                     val param = ParamQuery()
                     // Build the regex for each query param
                     while (matcher.find()) {
-                        param.addArgumentName(matcher.group(1))
+                        param.addArgumentName(matcher.group(1) as String)
                         argRegex.append(
                             Pattern.quote(
-                                queryParam!!.substring(
+                                queryParam.substring(
                                     appendPos,
                                     matcher.start()
                                 )
@@ -56,18 +63,17 @@ internal class NavDeepLink(
                         argRegex.append("(.+?)?")
                         appendPos = matcher.end()
                     }
-                    if (appendPos < queryParam!!.length) {
+                    if (appendPos < queryParam.length) {
                         argRegex.append(Pattern.quote(queryParam.substring(appendPos)))
                     }
                     // Save the regex with wildcards unquoted, and add the param to the map with its
                     // name as the key
-                    param.setParamRegex(argRegex.toString().replace(".*", "\\E.*\\Q"))
-                    mParamArgMap[paramName!!] = param
+                    param.paramRegex = argRegex.toString().replace(".*", "\\E.*\\Q")
+                    paramArgMap[paramName] = param
                 }
             } else {
-                mExactDeepLink = buildPathRegex(uri, uriRegex, fillInPattern)
+                isExactDeepLink = buildPathRegex(uriPattern, uriRegex, fillInPattern)
             }
-
             // Since we've used Pattern.quote() above, we need to
             // specifically escape any .* instances to ensure
             // they are still treated as wildcards in our final regex
@@ -86,7 +92,7 @@ internal class NavDeepLink(
         // Track whether this is an exact deep link
         var exactDeepLink = !uri.contains(".*")
         while (matcher.find()) {
-            val argName = matcher.group(1)
+            val argName = matcher.group(1) as String
             arguments.add(argName)
             // Use Pattern.quote() to treat the input string as a literal
             uriRegex.append(Pattern.quote(uri.substring(appendPos, matcher.start())))
@@ -110,44 +116,51 @@ internal class NavDeepLink(
         return pattern?.matcher(path)?.matches() ?: false
     }
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NullableCollection")
+    // Pattern.compile has no nullability for the regex parameter
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     fun matchingArguments(
         deepLink: String,
     ): Map<String, Any>? = matchingArguments(deepLink.toUri())
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NullableCollection")
+    // Pattern.compile has no nullability for the regex parameter
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     fun matchingArguments(
         deepLink: Uri,
     ): Map<String, Any>? {
-        val matcher = pattern?.matcher(deepLink.toString())
-        if (matcher == null || !matcher.matches()) return null
-
+        val matcher = pattern!!.matcher(deepLink.toString())
+        if (!matcher.matches()) {
+            return null
+        }
         val resultMap = mutableMapOf<String, Any>()
-
-        val size = arguments.size
+        val size = this.arguments.size
         for (index in 0 until size) {
-            val argumentName = arguments[index]
+            val argumentName = this.arguments[index]
             val value = Uri.decode(matcher.group(index + 1))
             resultMap[argumentName] = value
         }
-        if (mIsParameterizedQuery) {
-            for ((paramName, storedParam) in mParamArgMap) {
-                var argMatcher: Matcher?
+        if (isParameterizedQuery) {
+            for (paramName in paramArgMap.keys) {
+                var argMatcher: Matcher? = null
+                val storedParam = paramArgMap[paramName]
                 val inputParams = deepLink.getQueryParameter(paramName)
                 if (inputParams != null) {
                     // Match the input arguments with the saved regex
-                    argMatcher = Pattern.compile(storedParam.paramRegex).matcher(inputParams)
+                    argMatcher = Pattern.compile(storedParam!!.paramRegex).matcher(inputParams)
                     if (!argMatcher.matches()) {
                         return null
                     }
-                    // Params could have multiple arguments, we need to handle them all
-                    for (index in 0 until storedParam.size()) {
-                        var value: String? = null
-                        if (argMatcher != null) {
-                            value = Uri.decode(argMatcher.group(index + 1))
-                        }
-                        val argName = storedParam.getArgumentName(index)
-                        if (value != null) {
-                            resultMap[argName] = value
-                        }
+                }
+                // Params could have multiple arguments, we need to handle them all
+                for (index in 0 until storedParam!!.size()) {
+                    var value: String? = null
+                    if (argMatcher != null) {
+                        value = Uri.decode(argMatcher.group(index + 1))
+                    }
+                    val argName = storedParam.getArgumentName(index)
+                    if (value != null && value.replace("[{}]".toRegex(), "") != argName) {
+                        resultMap[argName] = value
                     }
                 }
             }
@@ -155,47 +168,39 @@ internal class NavDeepLink(
         return resultMap
     }
 
-    fun isExactDeepLink() = mExactDeepLink
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
         other as NavDeepLink
 
-        if (uri != other.uri) return false
+        if (uriPattern != other.uriPattern) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        return uri.hashCode()
+        return uriPattern.hashCode()
     }
 
     override fun toString(): String {
-        return "NavDeepLink(uri='$uri', pattern='$pattern')"
-    }
-}
-
-private class ParamQuery {
-    var paramRegex: String = ""
-        private set
-    private val mArguments = ArrayList<String>()
-
-    fun addArgumentName(name: String) {
-        mArguments.add(name)
+        return "NavDeepLink(uriPattern='$uriPattern', pattern='$pattern')"
     }
 
-    fun getArgumentName(index: Int): String {
-        return mArguments[index]
-    }
+    private class ParamQuery {
+        var paramRegex: String? = null
+        private val arguments = mutableListOf<String>()
 
-    fun size(): Int {
-        return mArguments.size
-    }
+        fun addArgumentName(name: String) {
+            arguments.add(name)
+        }
 
-    fun setParamRegex(regex: String) {
-        paramRegex = regex
-    }
+        fun getArgumentName(index: Int): String {
+            return arguments[index]
+        }
 
+        fun size(): Int {
+            return arguments.size
+        }
+    }
 }

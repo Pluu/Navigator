@@ -65,11 +65,11 @@ class RouteGraph internal constructor(
         deepLink: NavDeepLink
     ) {
         if (deepLinks.contains(deepLink.hashCode())) {
-            logger.w("[$name] DeepLink ('${deepLink.uri}') is already registered ")
+            logger.w("[$name] DeepLink ('${deepLink.uriPattern}') is already registered ")
             return
         }
         deepLinks.put(deepLink.hashCode(), deepLink)
-        logger.d("[$name] Added deeplink ${deepLink.uri}")
+        logger.d("[$name] Added deeplink ${deepLink.uriPattern}")
     }
 
     fun addRouteGraph(
@@ -138,7 +138,7 @@ class RouteGraph internal constructor(
         val uri = request.uri.toString().trimUriSeparator()
         for (deepLink in deepLinks.valueIterator()) {
             if (deepLink.match(uri)) {
-                val destination = findDestination(deepLink.uri)
+                val destination = findDestination(deepLink.uriPattern)
                 return if (destination != null) {
                     DeepLinkMatchResult(
                         request = request,
