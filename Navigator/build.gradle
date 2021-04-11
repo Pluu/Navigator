@@ -55,6 +55,7 @@ dependencies {
     testImplementation Dep.Test.mockito
     testImplementation Dep.Test.mockitoInline
     testImplementation Dep.Test.robolectric
+    debugImplementation Dep.AndroidX.fragmentTesting
 
     androidTestImplementation Dep.AndroidX.Test.junit
     androidTestImplementation Dep.AndroidX.Test.espressoCore

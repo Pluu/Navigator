@@ -26,7 +26,7 @@ class RouteGraph internal constructor(
     fun addDestination(
         destination: Destination,
         creator: CREATOR_ACTION
-    ) = addDestination(destination, CreateRoutingImpl(creator))
+    ) = addDestination(destination, creator.toRouting())
 
     fun addDeepLink(
         destination: Destination,
@@ -215,7 +215,7 @@ class RouteGraph internal constructor(
                     setPath(deepLinkConfig.prefixPath)
                 }
                 for ((destination, creator) in routeList) {
-                    this.addDestination(destination, CreateRoutingImpl(creator))
+                    this.addDestination(destination, creator.toRouting())
                 }
                 for ((path, executor) in deepLinkList) {
                     this.addDeepLink(

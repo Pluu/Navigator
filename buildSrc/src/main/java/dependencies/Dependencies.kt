@@ -12,6 +12,7 @@ object Dep {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val coreKtx = "androidx.core:core-ktx:1.3.2"
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.2"
+        const val fragmentTesting = "androidx.fragment:fragment-testing:1.3.2"
         const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
         const val material = "com.google.android.material:material:1.3.0"
         const val viewBinding = "androidx.databinding:viewbinding:${GradlePlugin.agpVersion}"

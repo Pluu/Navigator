@@ -2,6 +2,7 @@ package com.pluu.navigator.starter
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
+import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import com.pluu.navigator.AbstractExecutor
 import com.pluu.navigator.CreateRouting
@@ -18,7 +19,7 @@ import com.pluu.navigator.exception.MissingRouteThrowable
 import com.pluu.navigator.logger
 
 class NavigatorStarter(
-    private val starter: Starter,
+    @VisibleForTesting val starter: Starter,
     private val graph: RouteGraph,
     private val deepLinkExecutor: DeepLinkExecutor
 ) {
