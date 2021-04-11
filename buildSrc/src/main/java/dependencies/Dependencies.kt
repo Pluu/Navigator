@@ -7,12 +7,12 @@ object Dep {
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Kotlin.version}"
     }
     object AndroidX {
-        const val activityKtx = "androidx.activity:activity-ktx:1.2.0"
+        const val activityKtx = "androidx.activity:activity-ktx:1.2.2"
         const val appCompat = "androidx.appcompat:appcompat:1.2.0"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val coreKtx = "androidx.core:core-ktx:1.3.2"
-        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.0"
-        const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.2"
+        const val lifecycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
         const val material = "com.google.android.material:material:1.3.0"
         const val viewBinding = "androidx.databinding:viewbinding:${GradlePlugin.agpVersion}"
 
@@ -24,15 +24,15 @@ object Dep {
     }
 
     object Kotlin {
-        const val version = "1.4.31"
+        const val version = "1.4.32"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${version}"
     }
 
     object Test {
-        private const val mockitoVersion = "3.8.0"
+        private const val mockitoVersion = "3.9.0"
         const val mockito = "org.mockito:mockito-core:${mockitoVersion}"
         const val mockitoInline = "org.mockito:mockito-inline:${mockitoVersion}"
-        const val junit = "junit:junit:4.13.1"
+        const val junit = "junit:junit:4.13.2"
         const val robolectric = "org.robolectric:robolectric:4.5.1"
     }
 
