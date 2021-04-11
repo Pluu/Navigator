@@ -5,8 +5,10 @@ import android.os.Bundle
 import com.pluu.navigator.DIRECTION_PARAMS_KEY
 import kotlin.properties.ReadOnlyProperty
 
+@Suppress("UNCHECKED_CAST")
 fun <T> Bundle.findDirectionParam() = get(DIRECTION_PARAMS_KEY) as T
 
+@Suppress("UNCHECKED_CAST")
 fun <T> Bundle.optionalDirectionParam() = get(DIRECTION_PARAMS_KEY) as? T
 
 fun <T> bindExtra() = extraDelegate {

@@ -40,6 +40,7 @@ internal class FragmentStarter(private val fragment: Fragment) : Starter {
         fragment.startActivity(intent)
     }
 
+    @Suppress("DEPRECATION")
     override fun startForResult(
         intent: Intent,
         requestCode: Int

@@ -273,6 +273,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == sampleRequestCode) {
