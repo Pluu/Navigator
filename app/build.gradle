@@ -46,6 +46,7 @@ dependencies {
     implementation project(path: ':feature2')
 
     implementation Dep.Kotlin.stdlib
+    implementation Dep.AndroidX.activityKtx
     implementation Dep.AndroidX.appCompat
     implementation Dep.AndroidX.constraintLayout
     implementation Dep.AndroidX.coreKtx
